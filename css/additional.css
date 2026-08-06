@@ -193,9 +193,24 @@ ADDITIONAL CARD
 }
 
 #additional-card{
-    grid-column: span 2;
-}
 
+    grid-column:1 / -1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    min-height:0;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:10px;
+
+    background:#ffffff;
+
+    overflow:hidden;
+
+}
 
 
 /*======================================
