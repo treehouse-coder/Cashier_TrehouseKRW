@@ -6,7 +6,7 @@ TRANSACTION TABLE
 
     display:flex;
     flex-direction:column;
-    height:100%;
+    min-height:0;
 
 }
 
@@ -101,7 +101,14 @@ BODY
 #transaction-table .card-body{
 
     flex:1;
-    overflow:auto;
+
+    min-height:0;
+
+    overflow-y:auto;
+
+    overflow-x:auto;
+
+    -webkit-overflow-scrolling:touch;
 
 }
 
