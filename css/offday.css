@@ -2,23 +2,7 @@
 OFFDAY TABLE
 ======================================*/
 
-#offday-card{
 
-    display:flex;
-
-    flex-direction:column;
-
-    min-height:0;
-
-    border:1px solid #e5e7eb;
-
-    border-radius:10px;
-
-    background:#ffffff;
-
-    overflow:hidden;
-
-}
 
 #offdayTable{
 
@@ -27,6 +11,14 @@ OFFDAY TABLE
     flex-direction:column;
 
     gap:4px;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:10px;
+
+    background:#ffffff;
+
+    overflow:hidden;
 
 }
 
