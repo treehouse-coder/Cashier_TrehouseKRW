@@ -1,0 +1,694 @@
+/*======================================
+ROOT
+======================================*/
+
+:root{
+
+    --header-height:60px;
+
+    --gap:15px;
+
+    --padding:15px;
+
+    --bg:#f5f6fa;
+
+    --card:#ffffff;
+
+    --border:#e5e7eb;
+
+}
+
+
+/*======================================
+RESET
+======================================*/
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+html,
+body{
+
+    width:100%;
+
+    min-height:100vh;
+
+    font-family:"Segoe UI",sans-serif;
+
+    background:var(--bg);
+
+    overflow:hidden;
+
+}
+
+
+/*======================================
+HEADER
+======================================*/
+
+.header{
+
+    position: relative;
+
+    height: var(--header-height);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 24px;
+
+    background: #206024;
+
+    border-bottom: 1px solid var(--border);
+
+    box-shadow: 0 2px 10px rgba(0,0,0,.04);
+
+    z-index: 100;
+
+}
+
+/*======================================
+LEFT
+======================================*/
+
+.header-left{
+
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+
+}
+
+.header-left h1{
+
+    margin: 0;
+
+    font-family: "Arizonia",cursive;
+
+    font-size: 35px;
+    font-weight: 700;
+
+    color: #ffffff;
+
+    letter-spacing: .3px;
+
+    white-space: nowrap;
+
+}
+
+/*======================================
+CENTER
+======================================*/
+
+.header-center{
+
+    flex: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+}
+
+/*======================================
+RIGHT
+======================================*/
+
+.header-right{
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: flex-end;
+
+    line-height: 1.2;
+
+}
+
+.admin-name{
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #ffffff;
+
+}
+
+#digitalClock{
+
+    margin-top: 3px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #ffffff;
+
+    font-family: "Poppins", sans-serif;
+
+    letter-spacing: 1px;
+
+}
+
+.header-right span{
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #ffffff;
+
+}
+
+/*======================================
+FORM CONTROL
+======================================*/
+
+
+.header input{
+
+    height: 38px;
+
+    width: 150px;
+
+    padding: 0 14px;
+
+    border: 1px solid #d8d8d8;
+    border-radius: 8px;
+
+    background: #206024;
+
+    font-size: 18px;
+    
+    align-items: center;
+
+    color: #ffffff;
+
+    font-weight: 1000;
+
+    outline: none;
+
+    transition: .2s;
+
+}
+
+
+.header input:hover{
+
+    border-color: #7ac47d;
+
+}
+
+
+.header input:focus{
+
+    border-color: #43a047;
+
+    box-shadow: 0 0 0 3px rgba(67,160,71,.15);
+
+}
+
+/*======================================
+BUTTON
+======================================*/
+
+.header button{
+
+    height: 38px;
+
+    padding: 0 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #2e7d32;
+
+    color: #fff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.header button:hover{
+
+    background: #256628;
+
+}
+
+.header button:active{
+
+    transform: scale(.98);
+
+}
+
+
+
+/*======================================
+MAIN
+======================================*/
+
+.container{
+
+    height:calc(100vh - var(--header-height));
+
+    display:grid;
+
+    grid-template-columns:60% 40%;
+
+    gap:var(--gap);
+
+    padding:var(--padding);
+
+    overflow:hidden;
+
+}
+/*======================================
+LEFT PANEL
+======================================*/
+
+.left-panel{
+
+    display:grid;
+
+    grid-template-rows:auto 1fr;
+
+    gap:var(--gap);
+
+    min-height:0;
+
+}
+
+/*======================================
+RIGHT PANEL
+======================================*/
+
+:root{
+
+    --top-card-height:300px;
+
+}
+
+.right-panel{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    grid-auto-rows:max-content;
+
+    gap:var(--gap);
+
+    height:100%;
+
+    overflow-y:auto;
+
+    min-height:0;
+
+    align-content:start;
+
+    padding-right:6px;
+
+}
+
+/* Card umum */
+
+.right-panel > .card{
+
+    align-self:start;
+
+}
+
+/* Baris pertama */
+
+#summary-card,
+
+#offday-card{
+
+    height:var(--top-card-height);
+
+}
+
+/* Baris berikutnya */
+
+#additional-card,
+
+#feedbackCard{
+
+    grid-column:1 / -1;
+
+    height:auto;
+
+}
+
+
+/*======================================
+CARD HEADER
+======================================*/
+
+.card-header{
+
+    position:relative;
+
+    height:30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 15px;
+
+    border-bottom:1px solid var(--border);
+
+    flex-shrink:0;
+
+}
+
+.card-header h2{
+
+    position:absolute;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    margin:0;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    color:#0b0000;
+
+    white-space:nowrap;
+
+}
+
+
+
+/*======================================
+SCROLLBAR
+======================================*/
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+    height:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#cfcfcf;
+
+    border-radius:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+
+
+
+
+/*======================================
+LAYOUT - TABLET
+======================================*/
+
+@media (max-width:1024px){
+
+    :root{
+
+        --gap:12px;
+        --padding:12px;
+
+    }
+
+    html,
+    body{
+
+        overflow:hidden;
+
+    }
+
+    /*==============================
+    HEADER
+    ==============================*/
+
+    .header{
+
+        padding:0 16px;
+
+    }
+
+    .header-left h1{
+
+        font-size:28px;
+
+    }
+
+    .header-center{
+
+        gap:8px;
+
+    }
+
+    .header input{
+
+        width:135px;
+        font-size:16px;
+
+    }
+
+    .header button{
+
+        padding:0 14px;
+
+    }
+
+    /*==============================
+    MAIN
+    ==============================*/
+
+    .container{
+
+        grid-template-columns:
+            58%
+            42%;
+
+    }
+
+    /*==============================
+    RIGHT PANEL
+    ==============================*/
+
+    .right-panel{
+
+        grid-template-columns:1fr;
+
+        padding-right:0;
+
+    }
+
+    #summary-card,
+    #offday-card,
+    #additional-card,
+    #feedbackCard{
+
+        grid-column:auto;
+
+        width:100%;
+
+    }
+
+}
+
+
+
+/*======================================
+LAYOUT - MOBILE
+======================================*/
+
+@media (max-width:767px){
+
+    :root{
+
+        --header-height:auto;
+
+        --gap:12px;
+
+        --padding:12px;
+
+    }
+
+    html,
+    body{
+
+        overflow:auto;
+
+    }
+
+    /*==============================
+    HEADER
+    ==============================*/
+
+    .header{
+
+        height:auto;
+
+        padding:12px;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        gap:12px;
+
+    }
+
+    .header-left,
+    .header-center,
+    .header-right{
+
+        width:100%;
+
+    }
+
+    .header-left{
+
+        justify-content:center;
+
+    }
+
+    .header-left h1{
+
+        font-size:30px;
+
+        text-align:center;
+
+    }
+
+    .header-center{
+
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:10px;
+
+    }
+
+    .header-center button{
+
+        width:100%;
+
+    }
+
+    .header input{
+
+        width:100%;
+
+    }
+
+    .header-right{
+
+        align-items:center;
+
+        text-align:center;
+
+    }
+
+    /*==============================
+    MAIN
+    ==============================*/
+
+    .container{
+
+        height:auto;
+
+        display:flex;
+
+        flex-direction:column;
+
+        overflow:visible;
+
+    }
+
+    /*==============================
+    PANEL
+    ==============================*/
+
+    .left-panel,
+    .right-panel{
+
+        width:100%;
+
+    }
+
+    .left-panel{
+
+        display:flex;
+
+        flex-direction:column;
+
+    }
+
+    .right-panel{
+
+        display:flex;
+
+        flex-direction:column;
+
+        overflow:visible;
+
+        padding-right:0;
+
+    }
+
+    /*==============================
+    CARD
+    ==============================*/
+
+    #summary-card,
+    #offday-card,
+    #additional-card,
+    #feedbackCard{
+
+        width:100%;
+
+        height:auto;
+
+    }
+
+    .card-header{
+
+        padding:0 12px;
+
+    }
+
+}

@@ -1,0 +1,119 @@
+/*======================================
+NOTIFICATION
+======================================*/
+
+#notification{
+
+    position:fixed;
+
+    top:70px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    min-width:300px;
+
+    max-width:500px;
+
+    padding:12px 20px;
+
+    border-radius:8px;
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    text-align:center;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.3s;
+
+    z-index:9999;
+
+}
+
+#notification.show{
+
+    opacity:1;
+
+}
+
+#notification.success{
+
+    background:#2E7D32;
+
+}
+
+#notification.error{
+
+    background:#C62828;
+
+}
+
+#notification.info{
+
+    background:#1565C0;
+
+}
+
+
+
+
+/*======================================
+NOTIFICATION - TABLET
+======================================*/
+
+@media (max-width:1024px){
+
+    #notification{
+
+        top:65px;
+
+        min-width:280px;
+        max-width:70vw;
+
+        padding:12px 18px;
+
+        font-size:14px;
+
+    }
+
+}
+
+
+
+/*======================================
+NOTIFICATION - MOBILE
+======================================*/
+
+@media (max-width:767px){
+
+    #notification{
+
+        top:12px;
+
+        left:12px;
+        right:12px;
+
+        transform:none;
+
+        min-width:0;
+        max-width:none;
+        width:auto;
+
+        padding:14px 16px;
+
+        font-size:14px;
+        line-height:1.4;
+
+        border-radius:10px;
+
+    }
+
+}

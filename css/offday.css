@@ -1,0 +1,348 @@
+/*======================================
+OFFDAY TABLE
+======================================*/
+
+#offdayTable{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+}
+
+/* Header */
+
+.offday-header{
+
+    display:grid;
+
+    grid-template-columns:45% 25% 30%;
+
+    padding:6px 0;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    border-bottom:2px solid #ddd;
+
+}
+
+/* Row */
+
+.offday-row{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    min-height:28px;
+
+    padding:6px 0;
+
+    font-size:13px;
+
+    color:#ff0000;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.offday-row:last-child{
+
+    border-bottom:none;
+
+}
+
+
+/*======================================
+OFFDAY MODAL
+======================================*/
+
+.offday-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:9999;
+
+}
+
+.offday-container{
+
+    width:360px;
+
+    background:#fff;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+}
+
+.offday-header{
+
+    height:56px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 18px;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+.offday-close{
+
+    width:34px;
+
+    height:34px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#ef5350;
+
+    color:#fff;
+
+    cursor:pointer;
+
+}
+
+.offday-body{
+
+    padding:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.offday-body input{
+
+    height:40px;
+
+    padding:0 12px;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    outline:none;
+
+}
+
+.offday-footer{
+
+    padding:18px;
+
+}
+
+.offday-footer button{
+
+    width:100%;
+
+    height:42px;
+
+}
+
+
+
+
+/*======================================
+OFFDAY - TABLET
+======================================*/
+
+@media (max-width:1024px){
+
+    /*==============================
+    CARD
+    ==============================*/
+
+    #offdayTable{
+
+        gap:6px;
+
+    }
+
+    .offday-header{
+
+        font-size:13px;
+
+    }
+
+    .offday-row{
+
+        min-height:32px;
+
+        font-size:14px;
+
+    }
+
+    /*==============================
+    MODAL
+    ==============================*/
+
+    .offday-container{
+
+        width:420px;
+        max-width:92vw;
+
+    }
+
+    .offday-body{
+
+        padding:18px;
+
+    }
+
+    .offday-body input{
+
+        height:42px;
+
+        font-size:15px;
+
+    }
+
+    .offday-footer button{
+
+        height:44px;
+
+    }
+
+}
+
+
+
+/*======================================
+OFFDAY - MOBILE
+======================================*/
+
+@media (max-width:767px){
+
+    /*==============================
+    CARD
+    ==============================*/
+
+    #offdayTable{
+
+        gap:6px;
+
+    }
+
+    .offday-header{
+
+        grid-template-columns:
+            45%
+            25%
+            30%;
+
+        font-size:13px;
+
+    }
+
+    .offday-row{
+
+        min-height:34px;
+
+        font-size:14px;
+
+        padding:8px 0;
+
+    }
+
+    /*==============================
+    MODAL
+    ==============================*/
+
+    .offday-modal{
+
+        padding:12px;
+
+    }
+
+    .offday-container{
+
+        width:100%;
+
+        max-width:none;
+
+        border-radius:12px;
+
+    }
+
+    .offday-header{
+
+        height:56px;
+
+        padding:0 16px;
+
+    }
+
+    .offday-close{
+
+        width:40px;
+        height:40px;
+
+        font-size:18px;
+
+    }
+
+    .offday-body{
+
+        padding:16px;
+
+        gap:12px;
+
+    }
+
+    .offday-body input{
+
+        height:44px;
+
+        font-size:15px;
+
+    }
+
+    .offday-footer{
+
+        padding:16px;
+
+    }
+
+    .offday-footer button{
+
+        width:100%;
+
+        height:46px;
+
+        font-size:15px;
+
+    }
+
+}

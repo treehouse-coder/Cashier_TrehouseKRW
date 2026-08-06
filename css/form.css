@@ -1,0 +1,222 @@
+/*======================================
+TRANSACTION FORM
+======================================*/
+
+#transaction-form{
+
+    display: flex;
+    flex-direction: column;
+    background: #9fe0a3;
+
+}
+
+
+#transaction-form .card-body{
+
+    /* Jangan memenuhi tinggi card */
+    flex: 0;
+
+    overflow:visible;
+
+    padding: 10px 15px;
+
+    display: grid;
+
+    grid-template-columns:
+        1.2fr
+        1.2fr
+        1fr
+        1fr
+        120px;
+
+    gap: 10px;
+
+    align-items: end;
+
+}
+
+.transaction-form .form-group{
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+
+}
+
+.transaction-form .form-group label{
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #2f4f35;
+    line-height: 1;
+
+}
+
+.transaction-form .form-group select{
+
+    width: 100%;
+    height: 30px;
+
+    padding: 0 12px;
+
+    border: 1px solid #cfd8dc;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #333;
+
+    font-size: 13px;
+
+    outline: none;
+    transition: .2s;
+
+}
+
+.transaction-form .form-group select:hover{
+
+    border-color: #7bc67e;
+
+}
+
+.transaction-form .form-group select:focus{
+
+    border-color: #43a047;
+    box-shadow: 0 0 0 3px rgba(67,160,71,.15);
+
+}
+
+#btnSave{
+
+    width: 100%;
+    height: 42px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #2e7d32;
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: .2s;
+
+}
+
+#btnSave:hover{
+
+    background: #256628;
+
+}
+
+#btnSave:active{
+
+    transform: scale(.98);
+
+}
+
+
+
+
+/*======================================
+TRANSACTION FORM - TABLET
+======================================*/
+
+@media (max-width:1024px){
+
+    #transaction-form .card-body{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:12px;
+
+        align-items:end;
+
+    }
+
+    .transaction-form .form-group{
+
+        width:100%;
+
+    }
+
+    #btnSave{
+
+        grid-column:1 / -1;
+
+        width:100%;
+        height:44px;
+
+    }
+
+    .transaction-form .form-group select{
+
+        height:40px;
+        font-size:14px;
+
+    }
+
+}
+
+
+
+/*======================================
+TRANSACTION FORM - MOBILE
+======================================*/
+
+@media (max-width:767px){
+
+    #transaction-form{
+
+        width:100%;
+
+    }
+
+    #transaction-form .card-body{
+
+        display:grid;
+
+        grid-template-columns:1fr;
+
+        gap:12px;
+
+        padding:15px;
+
+    }
+
+    .transaction-form .form-group{
+
+        width:100%;
+
+    }
+
+    .transaction-form .form-group label{
+
+        font-size:14px;
+
+    }
+
+    .transaction-form .form-group select{
+
+        width:100%;
+
+        height:44px;
+
+        font-size:15px;
+
+    }
+
+    #btnSave{
+
+        width:100%;
+
+        height:46px;
+
+        font-size:15px;
+
+    }
+
+}

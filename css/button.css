@@ -1,0 +1,343 @@
+/*======================================
+HOLIDAY BUTTON
+======================================*/
+
+#btnHoliday {
+
+    border: none;
+
+    padding: 8px 20px;
+
+    border-radius: 20px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    color: white;
+
+}
+
+
+
+/*======================================
+NORMAL STATUS
+======================================*/
+
+#btnHoliday.normal {
+
+    background: #2e7d32;
+
+}
+
+
+
+/* Hover NORMAL */
+
+#btnHoliday.normal:hover {
+
+    background: #1b5e20;
+
+}
+
+
+
+/*======================================
+HOLIDAY STATUS
+======================================*/
+
+#btnHoliday.holiday {
+
+    background: #c62828;
+
+}
+
+
+
+/* Hover HOLIDAY */
+
+#btnHoliday.holiday:hover {
+
+    background: #8e0000;
+
+}
+
+
+
+/*======================================
+ACTIVE EFFECT
+======================================*/
+
+#btnHoliday:active {
+
+    transform: scale(0.95);
+
+}
+
+
+/*======================================
+FLOATING MENU
+======================================*/
+
+.fab-container{
+
+    position:fixed;
+
+    right:15px;
+
+    bottom:15px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-end;
+
+    z-index:9999;
+
+}
+.fab-menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    margin-bottom:15px;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(10px);
+
+    transition:.25s;
+
+}
+
+.fab-menu.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+
+}
+
+/*======================================
+MENU BUTTON
+======================================*/
+
+.fab-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    min-width:180px;
+
+    height:42px;
+
+    padding:0 15px;
+
+    border:none;
+
+    border-radius:25px;
+
+    background:#ffffff;
+
+    color:#333;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
+
+    transition:.2s;
+
+}
+
+.fab-item:hover{
+
+    background:#2E7D32;
+
+    color:#fff;
+
+}
+
+/*======================================
+MAIN BUTTON
+======================================*/
+
+.fab-button{
+
+    width:60px;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    font-size:26px;
+
+    cursor:pointer;
+
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+
+    transition:.2s;
+
+}
+
+.fab-button:hover{
+
+    transform:scale(1.08);
+
+    background:#256628;
+
+}
+
+.fab-button.active{
+
+    transform:rotate(45deg);
+
+}
+
+
+/*======================================
+BUTTON LOADING
+======================================*/
+
+button:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+    pointer-events:none;
+
+}
+
+
+
+
+/*======================================
+HOLIDAY BUTTON - TABLET
+======================================*/
+
+@media (max-width:1024px){
+
+    #btnHoliday{
+
+        padding:10px 22px;
+        font-size:15px;
+        min-height:44px;
+
+    }
+
+    /*======================================
+    FLOATING MENU
+    ======================================*/
+
+    .fab-container{
+
+        right:20px;
+        bottom:20px;
+
+    }
+
+    .fab-item{
+
+        min-width:200px;
+        height:46px;
+
+        font-size:15px;
+
+    }
+
+    .fab-button{
+
+        width:64px;
+        height:64px;
+        font-size:28px;
+
+    }
+
+}
+
+
+/*======================================
+HOLIDAY BUTTON - MOBILE
+======================================*/
+
+@media (max-width:767px){
+
+    #btnHoliday{
+
+        width:100%;
+
+        min-height:46px;
+
+        padding:12px;
+
+        font-size:15px;
+
+        border-radius:10px;
+
+    }
+
+    /*======================================
+    FLOATING MENU
+    ======================================*/
+
+    .fab-container{
+
+        right:15px;
+        bottom:15px;
+
+    }
+
+    .fab-menu{
+
+        gap:8px;
+
+    }
+
+    .fab-item{
+
+        min-width:170px;
+        max-width:80vw;
+
+        height:46px;
+
+        font-size:14px;
+
+        padding:0 14px;
+
+    }
+
+    .fab-button{
+
+        width:56px;
+        height:56px;
+
+        font-size:24px;
+
+    }
+
+}

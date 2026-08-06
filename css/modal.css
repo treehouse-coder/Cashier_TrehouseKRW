@@ -1,0 +1,389 @@
+/*======================================
+MODAL
+======================================*/
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:999;
+
+}
+
+.modal.show{
+
+    display:flex;
+
+}
+
+/*======================================
+CONTENT
+======================================*/
+
+.modal-content{
+
+    width:1000px;
+
+    max-height:90vh;
+
+    background:#fff;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+/*======================================
+HEADER
+======================================*/
+
+.modal-header{
+
+    height:55px;
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 20px;
+
+}
+
+#btnCloseModal{
+
+    background:none;
+
+    border:none;
+
+    color:#fff;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+}
+
+/*======================================
+SEARCH
+======================================*/
+
+.modal-search{
+
+    padding:15px 20px;
+
+    border-bottom:1px solid #ddd;
+
+}
+
+.modal-search input{
+
+    width:300px;
+
+    height:36px;
+
+    padding:0 12px;
+
+}
+
+/*======================================
+TABLE
+======================================*/
+
+.modal-table table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.modal-table th,
+.modal-table td{
+
+    padding:10px;
+
+    border-bottom:1px solid #e5e5e5;
+
+    text-align:left;
+
+    white-space:nowrap;
+
+}
+
+.modal-table thead th{
+
+    position:sticky;
+
+    top:0;
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    z-index:1;
+
+}
+
+/*======================================
+FORM
+======================================*/
+
+.modal-form{
+
+    padding:20px;
+
+    display:grid;
+
+    grid-template-columns:
+        1.4fr
+        120px
+        1.4fr
+        120px
+        120px
+        120px;
+
+    gap:15px;
+
+    align-items:end;
+
+}
+
+.modal-form .form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+}
+
+.modal-form input,
+.modal-form select{
+
+    width:100%;
+
+    height:38px;
+
+    padding:0 10px;
+
+    box-sizing:border-box;
+
+}
+
+/*======================================
+READONLY
+======================================*/
+
+#editPayment{
+
+    background:#f2f2f2;
+
+    font-weight:bold;
+
+}
+
+/*======================================
+FOOTER
+======================================*/
+
+.modal-footer{
+
+    padding:15px 20px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+    border-top:1px solid #ddd;
+
+}
+
+#btnUpdate{
+
+    background:#2E7D32;
+
+    color:#fff;
+
+}
+
+.modal-footer button{
+
+    min-width:100px;
+
+    height:38px;
+
+    border:none;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+}
+
+
+
+/*======================================
+EDIT MODAL - TABLET
+======================================*/
+
+@media (max-width:1024px){
+
+    .modal-content{
+
+        width:95vw;
+        max-height:92vh;
+
+    }
+
+    .modal-search{
+
+        padding:15px;
+
+    }
+
+    .modal-search input{
+
+        width:250px;
+
+    }
+
+    .modal-table{
+
+        overflow:auto;
+
+    }
+
+    .modal-form{
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+        gap:12px;
+
+    }
+
+    .modal-form input,
+    .modal-form select{
+
+        height:42px;
+        font-size:15px;
+
+    }
+
+    .modal-footer{
+
+        justify-content:flex-end;
+
+    }
+
+    .modal-footer button{
+
+        min-width:140px;
+        height:42px;
+
+    }
+
+}
+
+
+/*======================================
+EDIT MODAL - MOBILE
+======================================*/
+
+@media (max-width:767px){
+
+    .modal{
+
+        padding:10px;
+
+        align-items:flex-start;
+
+        overflow-y:auto;
+
+    }
+
+    .modal-content{
+
+        width:100%;
+
+        max-height:none;
+
+        height:auto;
+
+        margin:10px 0;
+
+        overflow-y:auto;
+
+        overflow-x:hidden;
+
+        border-radius:10px;
+
+    }
+
+    @media (max-width:767px){
+
+    .modal-footer{
+
+        display:flex;
+
+        align-items:center;
+
+        gap:8px;
+
+        padding:12px;
+
+    }
+
+    /* Search lebih lebar */
+    #searchTherapist{
+
+        flex:1;
+
+        min-width:0;
+
+        height:42px;
+
+    }
+
+    /* Cancel & Save lebih kecil */
+    .modal-footer button{
+
+        flex:0 0 80px;
+
+        min-width:80px;
+
+        height:42px;
+
+        padding:0;
+
+        font-size:13px;
+
+    }
+
+}
+
+}

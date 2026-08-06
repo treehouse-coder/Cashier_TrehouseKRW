@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treehouse POS</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+</head>
+<body>
+
+    <!-- ==========================
+            HEADER
+    =========================== -->
+    <header class="header">
+
+        <div id="notification"></div>
+
+        <div class="header-left">
+            <h1>Treehouse Massage</h1>
+        </div>
+
+        <div class="header-center">
+
+            
+
+            <input
+    type="text"
+    id="periode">
+
+            <button id="btnHoliday">
+                Normal
+            </button>
+
+            
+
+           
+
+        </div>
+
+        <div class="header-right">
+
+            <span class="admin-name">
+                Administrator
+            </span>
+
+            
+
+            <span id="digitalClock">
+            00:00:00
+            </span>
+
+        </div>
+
+        
+
+    </header>
+
+
+    <!-- ==========================
+            CONTENT
+    =========================== -->
+
+    <main class="container">
+
+
+        <!-- LEFT -->
+        <section class="left-panel">
+
+            <!-- ==========================
+        FORM TRANSAKSI
+========================== -->
+
+<div class="card" id="transaction-form">
+
+    
+
+    <div class="card-body transaction-form">
+
+        <div class="form-group">
+
+            <label>Terapis</label>
+
+            <select id="therapist">
+                <option value="">Pilih Terapis</option>
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Treatment</label>
+
+            <select id="treatment">
+                <option value="">Pilih Treatment</option>
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Gift</label>
+
+            <select id="gift">
+
+                <option>Tidak Ada</option>
+                <option>Voucher</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Paid</label>
+
+            <select id="paid">
+
+                <option value="">Pilih Paid</option>
+                <option>Cash</option>
+                <option>QRIS</option>
+                <option>Transfer</option>
+
+            </select>
+
+        </div>
+
+        
+
+        <button id="btnSave">
+
+            + Tambah
+
+        </button>
+
+    </div>
+
+</div>
+
+
+            <!-- ==========================
+        DATA TRANSAKSI
+========================== -->
+
+<div class="card" id="transaction-table">
+
+    <div class="card-header">
+
+        <h2>Data Transaksi</h2>
+    
+        <div class="table-toolbar">
+
+ <button id="btnEdit">
+    Edit
+</button>
+
+    <span id="totalData">
+
+        Total : 0
+
+    </span>
+
+</div>
+
+    </div>
+
+    <div class="card-body">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th width="50">No</th>
+                    <th width="80">Terapist</th>
+                    <th>TimeIn</th>
+                    <th>TimeOut</th>
+                    <th>Treatment</th>
+                    <th>Gift</th>
+                    <th>Happyhour</th>
+                    <th>Payment</th>
+                    <th>Paid</th>
+                    
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tableTransaction">
+
+                <!-- Data akan diisi JavaScript -->
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+        </section>
+
+
+
+<!-- ======================================
+RIGHT PANEL
+====================================== -->
+
+<aside class="right-panel">
+
+    <!-- ==========================
+    LAPORAN OMSET
+    =========================== -->
+
+    <div class="card" id="summary-card">
+
+        <div class="card-header">
+
+            <h2>Laporan Omset</h2>
+
+        </div>
+
+        <div class="summary-body">
+
+            <div class="summary-row">
+
+                <span>Cash</span>
+
+                <strong id="summaryCash">Rp 0</strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>QRIS</span>
+
+                <strong id="summaryQris">Rp 0</strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>Debit</span>
+
+                <strong id="summaryDebit">Rp 0</strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>Credit</span>
+
+                <strong id="summaryCredit">Rp 0</strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>Transfer</span>
+
+                <strong id="summaryTransfer">Rp 0</strong>
+
+            </div>
+
+            <div class="summary-row total">
+
+                <span>Total</span>
+
+                <strong id="summaryTotal">Rp 0</strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>Gift</span>
+
+                <strong id="summaryGift">0</strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>Loyalty</span>
+
+                <strong id="summaryLoyalty">0</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+   <!-- ==========================
+OFFDAY
+========================== -->
+
+<!-- ==========================
+OFFDAY
+========================== -->
+
+<div class="card" id="offday-card">
+
+    <div class="card-header">
+
+        <h2>Offday</h2>
+
+    </div>
+
+    <div class="card-body">
+
+        <div id="offdayList">
+
+            <!-- Javascript -->
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ==========================
+ADDITIONAL
+========================== -->
+
+<div class="card" id="additional-card">
+
+    <div class="card-header">
+
+        <h2>Additional</h2>
+
+    </div>
+
+    <div class="card-body">
+
+        <div id="additionalList">
+
+            <!-- Javascript -->
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================
+Feedback
+========================== -->
+
+<div
+    id="feedbackCard"
+    class="card feedback-card">
+
+    <div class="feedback-card-header">
+
+        <h3>Feedback</h3>
+
+        
+    </div>
+
+    <div
+        id="feedbackList"
+        class="feedback-list">
+
+        <div class="feedback-empty">
+
+            Belum ada feedback
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</aside>
+
+    </main>
+
+
+<!-- ======================================
+MODAL EDIT TRANSAKSI
+====================================== -->
+
+<div class="modal" id="editModal">
+
+    <div class="modal-content">
+
+        <!-- Header -->
+        <div class="modal-header">
+
+            <h2>Edit Transaksi</h2>
+
+            <button type="button" id="btnCloseModal">&times;</button>
+
+        </div>
+
+        <!-- Form Edit -->
+        <div class="modal-form">
+
+            <div class="form-group">
+
+                <label>Terapis</label>
+
+                <select id="editTherapist"></select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Time In</label>
+
+                <input
+                    type="time"
+                    id="editTime">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Treatment</label>
+
+                <select id="editTreatment"></select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Gift</label>
+
+                <select id="editGift"></select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Happy</label>
+
+                <select id="editHappy">
+
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Paid</label>
+
+                <select id="editPaid"></select>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+
+            <input
+                type="search"
+                id="searchTherapist"
+                placeholder="Cari Terapis..."
+                autocomplete="off">
+
+            <button
+                type="button"
+                id="btnCancel">
+
+                Batal
+
+            </button>
+
+            <button
+                type="button"
+                id="btnUpdate">
+
+                Simpan
+
+            </button>
+
+        </div>
+
+
+        <!-- Daftar Transaksi -->
+        <div class="modal-table">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Terapis</th>
+                        <th>Time</th>
+                        <th>Treatment</th>
+                        <th width="80">Gift</th>
+                        <th>Happy</th>
+                        <th width="90">Paid</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="editTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        
+    </div>
+
+</div>
+
+<!-- ======================================
+GIFT CARD MODAL
+====================================== -->
+
+<div id="giftcardModal" class="giftcard-modal">
+
+    <div class="giftcard-container">
+
+        <!-- Header -->
+
+        <div class="giftcard-header">
+
+    <div class="giftcard-title">
+
+        <h2>Treehouse Gift Card</h2>
+
+    </div>
+
+    <div class="giftcard-spacer"></div>
+
+    <div class="giftcard-header-right">
+
+        <div class="giftcard-toolbar">
+
+            <label>Periode</label>
+
+            <input
+                type="date"
+                id="giftcardDate"
+            >
+
+        </div>
+
+        <button id="btnCloseGiftcard">
+
+            ✕
+
+        </button>
+
+    </div>
+
+</div>
+
+        <!-- Body -->
+
+        <div class="giftcard-body">
+
+            <!-- ======================================
+            LEFT
+            ====================================== -->
+
+            <div class="giftcard-left">
+
+    <div class="section-title">
+
+        Form Input
+
+    </div>
+
+    <div class="gift-form">
+
+        <div class="form-group">
+
+            <label>Guest Name</label>
+
+            <input
+                type="text"
+                id="giftGuestName"
+                placeholder="Guest Name"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Treatment</label>
+
+            <select id="giftTreatment">
+
+                <option value="">Pilih Treatment</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Discount</label>
+
+            <select id="giftDiscount">
+
+                <option value="0">0%</option>
+                <option value="10">10%</option>
+                <option value="20">20%</option>
+                <option value="30">30%</option>
+                <option value="50">50%</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Paid</label>
+
+            <select id="giftPaid">
+
+                <option value="">Pilih Metode</option>
+
+            </select>
+
+        </div>
+
+        <div class="gift-button">
+
+            <button
+                type="button"
+                id="btnGiftReset"
+                class="btn-secondary">
+
+                Reset
+
+            </button>
+
+            <button
+                type="button"
+                id="btnGiftSave"
+                class="btn-primary">
+
+                Save
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+            <!-- ======================================
+            CENTER
+            ====================================== -->
+
+           <div class="giftcard-center">
+
+                    <div class="gift-table-header">
+
+                        <h3>Data Gift Card</h3>
+
+                        <input
+                            type="text"
+                            id="giftSearch"
+                            placeholder="Search..."
+                        >
+
+                    </div>
+
+                    <div class="gift-table-container">
+
+                        <table id="giftTable">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>No</th>
+
+                                    <th>Gift ID</th>
+
+                                    <th>Guest Name</th>
+
+                                    <th>Treatment</th>
+
+                                     <th>Paid</th>
+
+                                     <th>Harga</th>
+
+                                    <th>Status</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="giftTableBody">
+
+                                <!-- Javascript -->
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            <!-- ======================================
+            RIGHT
+            ====================================== -->
+
+            <div class="giftcard-right">
+
+    <div class="section-title">
+
+        Gift Use
+
+    </div>
+
+    <div class="gift-use">
+
+        <div class="form-group">
+
+            <label>Gift ID</label>
+
+            <input
+                type="text"
+                id="giftUseId"
+                readonly
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Therapist</label>
+
+            <select id="giftUseTherapist">
+
+                <option value="">Select Therapist</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Information</label>
+
+            <textarea
+                id="giftUseInfo"
+                rows="5"
+                readonly
+            ></textarea>
+
+        </div>
+
+        <div class="gift-button">
+
+            <button
+                type="button"
+                id="btnGiftCancel"
+                class="btn-secondary">
+
+                Cancel
+
+            </button>
+
+            <button
+                type="button"
+                id="btnGiftUse"
+                class="btn-primary">
+
+                Use Gift
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================================
+OFFDAY MODAL
+====================================== -->
+
+<div id="offdayModal" class="offday-modal">
+
+    <div class="offday-container">
+
+        <div class="offday-header">
+
+            <h2>Offday</h2>
+
+            <button
+                id="btnCloseOffday"
+                class="offday-close">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <div class="offday-body">
+
+            <input type="text" id="offday1" placeholder="Nama 1">
+            <input type="text" id="offday2" placeholder="Nama 2">
+            <input type="text" id="offday3" placeholder="Nama 3">
+            <input type="text" id="offday4" placeholder="Nama 4">
+            <input type="text" id="offday5" placeholder="Nama 5">
+            <input type="text" id="offday6" placeholder="Nama 6">
+            <input type="text" id="offday7" placeholder="Nama 7">
+
+        </div>
+
+        <div class="offday-footer">
+
+            <button
+                id="btnOffdayAdd"
+                class="btn-primary">
+
+                Add
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================================
+ADDITIONAL MODAL
+====================================== -->
+
+<div id="additionalModal" class="additional-modal">
+
+    <div class="additional-container">
+
+        <div class="additional-header">
+
+            <h2>Additional</h2>
+
+            <button
+                id="btnCloseAdditional"
+                class="additional-close">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <div class="additional-body">
+
+            <div class="additional-title">
+
+                <span>Paid</span>
+                <span>Harga</span>
+                <span>Keterangan</span>
+
+            </div>
+
+            <div class="additional-row">
+                <input id="additionalPaid1">
+                <input id="additionalHarga1" type="number">
+                <input id="additionalKet1">
+            </div>
+
+            <div class="additional-row">
+                <input id="additionalPaid2">
+                <input id="additionalHarga2" type="number">
+                <input id="additionalKet2">
+            </div>
+
+            <div class="additional-row">
+                <input id="additionalPaid3">
+                <input id="additionalHarga3" type="number">
+                <input id="additionalKet3">
+            </div>
+
+            <div class="additional-row">
+                <input id="additionalPaid4">
+                <input id="additionalHarga4" type="number">
+                <input id="additionalKet4">
+            </div>
+
+            <div class="additional-row">
+                <input id="additionalPaid5">
+                <input id="additionalHarga5" type="number">
+                <input id="additionalKet5">
+            </div>
+
+            <div class="additional-row">
+                <input id="additionalPaid6">
+                <input id="additionalHarga6" type="number">
+                <input id="additionalKet6">
+            </div>
+
+            <div class="additional-row">
+                <input id="additionalPaid7">
+                <input id="additionalHarga7" type="number">
+                <input id="additionalKet7">
+            </div>
+
+        </div>
+
+        <div class="additional-footer">
+
+            <button
+                id="btnAdditionalAdd"
+                class="btn-primary">
+
+                Add
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================================
+FEEDBACK MODAL
+====================================== -->
+
+<div id="feedbackModal" class="feedback-modal">
+
+    <div class="feedback-container">
+
+        <div class="feedback-header">
+
+            <h2>Feedback</h2>
+
+            <button
+                id="btnCloseFeedback"
+                class="feedback-close">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <div class="feedback-body">
+
+            <div class="feedback-title">
+
+                <span>Therapist</span>
+                <span>Tamu</span>
+                <span>Jam</span>
+                <span>Feedback</span>
+
+            </div>
+
+            <div class="feedback-row">
+                <input id="feedbackTherapist1">
+                <input id="feedbackGuest1">
+                <input id="feedbackTime1">
+                <input id="feedbackText1">
+            </div>
+
+            <div class="feedback-row">
+                <input id="feedbackTherapist2">
+                <input id="feedbackGuest2">
+                <input id="feedbackTime2">
+                <input id="feedbackText2">
+            </div>
+
+            <div class="feedback-row">
+                <input id="feedbackTherapist3">
+                <input id="feedbackGuest3">
+                <input id="feedbackTime3">
+                <input id="feedbackText3">
+            </div>
+
+            <div class="feedback-row">
+                <input id="feedbackTherapist4">
+                <input id="feedbackGuest4">
+                <input id="feedbackTime4">
+                <input id="feedbackText4">
+            </div>
+
+            <div class="feedback-row">
+                <input id="feedbackTherapist5">
+                <input id="feedbackGuest5">
+                <input id="feedbackTime5">
+                <input id="feedbackText5">
+            </div>
+
+            <div class="feedback-row">
+                <input id="feedbackTherapist6">
+                <input id="feedbackGuest6">
+                <input id="feedbackTime6">
+                <input id="feedbackText6">
+            </div>
+
+            <div class="feedback-row">
+                <input id="feedbackTherapist7">
+                <input id="feedbackGuest7">
+                <input id="feedbackTime7">
+                <input id="feedbackText7">
+            </div>
+
+            <div class="feedback-row">
+                <input id="feedbackTherapist8">
+                <input id="feedbackGuest8">
+                <input id="feedbackTime8">
+                <input id="feedbackText8">
+            </div>
+
+            <div class="feedback-row">
+                <input id="feedbackTherapist9">
+                <input id="feedbackGuest9">
+                <input id="feedbackTime9">
+                <input id="feedbackText9">
+            </div>
+
+            <div class="feedback-row">
+                <input id="feedbackTherapist10">
+                <input id="feedbackGuest10">
+                <input id="feedbackTime10">
+                <input id="feedbackText10">
+            </div>
+
+        </div>
+
+        <div class="feedback-footer">
+
+            <button
+                id="btnFeedbackAdd"
+                class="btn-primary">
+
+                Add
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================================
+CONGIG MODAL
+====================================== -->
+
+<div id="configModal" class="config-modal">
+
+    <div class="config-container">
+
+        <div class="config-header">
+
+            <h2>Therapist</h2>
+
+            <button
+                id="btnCloseConfig"
+                class="config-close">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <div class="config-body">
+
+            <input type="text" id="config1" placeholder="Data 1">
+            <input type="text" id="config2" placeholder="Data 2">
+            <input type="text" id="config3" placeholder="Data 3">
+            <input type="text" id="config4" placeholder="Data 4">
+            <input type="text" id="config5" placeholder="Data 5">
+            <input type="text" id="config6" placeholder="Data 6">
+            <input type="text" id="config7" placeholder="Data 7">
+            <input type="text" id="config8" placeholder="Data 8">
+            <input type="text" id="config9" placeholder="Data 9">
+            <input type="text" id="config10" placeholder="Data 10">
+            <input type="text" id="config11" placeholder="Data 11">
+            <input type="text" id="config12" placeholder="Data 12">
+            <input type="text" id="config13" placeholder="Data 13">
+
+        </div>
+
+        <div class="config-footer">
+
+            <button
+                id="btnConfigSave"
+                class="btn-primary">
+
+                Save
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================
+FLOATING MENU
+====================================== -->
+
+<div class="fab-container">
+
+    <div class="fab-menu" id="fabMenu">
+
+        <button class="fab-item" id="btnGiftcard">
+
+            🎁 <span>Gift Card</span>
+
+        </button>
+
+        <button class="fab-item" id="btnOffday">
+
+            🌴 <span>Offday</span>
+
+        </button>
+
+        <button class="fab-item" id="btnAdditional">
+
+            ➕ <span>Additional</span>
+
+        </button>
+
+     
+        <button class="fab-item" id="btnPrint">
+
+            🖨️ <span>Print</span>
+
+        </button>
+
+        <button class="fab-item" id="btnFeedback">
+
+            💬 <span>Feedback</span>
+
+        </button>
+
+        <button class="fab-item" id="btnConfig">
+            ⚙️ <span>Config</span>
+        </button>
+
+    </div>
+
+    <button class="fab-button" id="fabButton">
+
+        ☰
+
+    </button>
+
+</div>
+
+
+
+            <!-- Java script -->
+    
+    <script src="js/api.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/table.js"></script>
+    <script src="js/edit.js"></script>
+    <script src="js/giftcard.js"></script>
+    <script src="js/notification.js"></script>
+    <script src="js/transaction.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/offday.js"></script>
+    <script src="js/additional.js"></script>
+    <script src="js/feedback.js"></script>
+    <script src="js/configModal.js"></script>
+    <script src="js/print.js"></script>
+    <script src="js/summary.js"></script>
+    <script src="js/app.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+</body>
+</html>

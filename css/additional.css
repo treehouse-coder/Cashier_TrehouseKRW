@@ -1,0 +1,370 @@
+
+/*======================================
+ADDITIONAL MODAL
+======================================*/
+
+.additional-modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:9999;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.additional-container{
+
+    width:650px;
+
+    background:#fff;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+}
+
+.additional-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:16px 20px;
+
+    background:#2E7D32;
+
+    color:#fff;
+
+}
+
+.additional-close{
+
+    border:none;
+
+    background:none;
+
+    color:#fff;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+}
+
+.additional-body{
+
+    padding:20px;
+
+}
+
+.additional-title{
+
+    display:grid;
+
+    grid-template-columns:120px 120px 1fr;
+
+    gap:10px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
+}
+
+.additional-row{
+
+    display:grid;
+
+    grid-template-columns:120px 120px 1fr;
+
+    gap:10px;
+
+    margin-bottom:10px;
+
+}
+
+.additional-row input{
+
+    height:38px;
+
+    padding:0 10px;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    outline:none;
+
+}
+
+/* Hilangkan panah pada input number (Chrome, Edge, Safari) */
+.additional-row input[type="number"]::-webkit-inner-spin-button,
+.additional-row input[type="number"]::-webkit-outer-spin-button{
+
+    -webkit-appearance:none;
+    margin:0;
+
+}
+
+/* Hilangkan panah pada Firefox */
+.additional-row input[type="number"]{
+
+    -moz-appearance:textfield;
+    appearance:textfield;
+
+}
+
+.additional-row input:focus{
+
+    border-color:#2E7D32;
+
+}
+
+.additional-footer{
+
+    padding:18px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    border-top:1px solid #eee;
+
+}
+
+.additional-footer button{
+
+    width: 25%;
+
+    height: 42px;
+
+
+}
+
+/*======================================
+ADDITIONAL CARD
+======================================*/
+
+.additional-item{
+
+    display:grid;
+
+    grid-template-columns:90px 90px 1fr;
+
+    gap:8px;
+
+    padding:6px 0;
+
+    border-bottom:1px solid #eee;
+
+    font-size:13px;
+
+}
+.additional-item span:nth-child(3){
+    text-align:left;
+    color:#fb1818;
+    font-weight:bold;
+}
+.additional-item span:nth-child(1){
+    text-align:center;
+    color:#fb1818;
+    font-weight:bold;
+}
+.additional-item span:nth-child(2){
+
+    text-align:center;
+    color:#fb1818;
+    font-weight:bold;
+
+}
+
+#additional-card{
+    grid-column: span 2;
+}
+
+
+
+/*======================================
+ADDITIONAL MODAL - TABLET
+======================================*/
+
+@media (max-width:1024px){
+
+    .additional-container{
+
+        width:90vw;
+        max-width:700px;
+        max-height:90vh;
+
+        display:flex;
+        flex-direction:column;
+
+    }
+
+    .additional-body{
+
+        overflow-y:auto;
+        padding:18px;
+
+    }
+
+    .additional-title,
+    .additional-row{
+
+        grid-template-columns:110px 110px 1fr;
+        gap:10px;
+
+    }
+
+    .additional-row input{
+
+        height:42px;
+        font-size:15px;
+
+    }
+
+    .additional-footer button{
+
+        width:180px;
+        max-width:100%;
+
+    }
+
+    .additional-item{
+
+        grid-template-columns:80px 80px 1fr;
+
+    }
+
+}
+
+
+/*======================================
+ADDITIONAL MODAL - MOBILE
+======================================*/
+
+@media (max-width:767px){
+
+    .additional-modal{
+
+        padding:12px;
+
+    }
+
+    .additional-container{
+
+        width:100%;
+        max-width:none;
+        max-height:95vh;
+
+        display:flex;
+        flex-direction:column;
+
+        border-radius:12px;
+
+    }
+
+    .additional-header{
+
+        padding:14px 16px;
+
+    }
+
+    .additional-header h3{
+
+        font-size:18px;
+
+    }
+
+    .additional-close{
+
+        font-size:28px;
+
+    }
+
+    .additional-body{
+
+        flex:1;
+
+        overflow:auto;
+
+        padding:16px;
+
+    }
+
+    /* Tetap 3 kolom agar data tidak berubah */
+    .additional-title,
+    .additional-row{
+
+        min-width:430px;
+
+        grid-template-columns:
+            100px
+            100px
+            1fr;
+
+        gap:8px;
+
+    }
+
+    .additional-row input{
+
+        height:44px;
+        font-size:16px;
+
+    }
+
+    .additional-footer{
+
+        justify-content:center;
+
+        padding:16px;
+
+    }
+
+    .additional-footer button{
+
+        width:100%;
+        height:46px;
+
+    }
+
+    /*======================================
+    ADDITIONAL CARD
+    ======================================*/
+
+    .additional-item{
+
+        min-width:320px;
+
+        grid-template-columns:
+            70px
+            70px
+            1fr;
+
+        font-size:14px;
+
+    }
+
+    #additional-card{
+
+        grid-column:auto;
+        width:100%;
+
+    }
+
+}

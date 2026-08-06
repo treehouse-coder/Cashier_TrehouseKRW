@@ -1,0 +1,385 @@
+/*======================================
+FEEDBACK MODAL
+======================================*/
+
+.feedback-modal{
+
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.35);
+    z-index:1000;
+
+}
+
+.feedback-container{
+
+    width:900px;
+    max-width:95%;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+
+}
+
+.feedback-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 20px;
+    border-bottom:1px solid #eee;
+
+}
+
+.feedback-close{
+
+    border:none;
+    background:none;
+    font-size:22px;
+    cursor:pointer;
+
+}
+
+.feedback-body{
+
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+
+}
+
+.feedback-title,
+.feedback-row{
+
+    display:grid;
+    grid-template-columns:15% 10% 15% 60%;
+    gap:10px;
+    align-items:center;
+
+}
+
+.feedback-title{
+
+    font-weight:600;
+
+}
+
+.feedback-row input{
+
+    height:38px;
+    padding:0 10px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    outline:none;
+
+}
+
+.feedback-footer{
+
+    display:flex;
+    justify-content:flex-end;
+    padding:16px 20px;
+    border-top:1px solid #eee;
+
+}
+
+.feedback-footer button{
+
+    width: 25%;
+    height: 42px;
+
+}
+
+
+
+/*======================================
+FEEDBACK CARD
+======================================*/
+
+.feedback-card{
+
+    grid-column:1 / span 2;
+    min-height:180px;
+
+}
+
+.feedback-card-header{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+}
+
+.feedback-card-header h3{
+
+    position:absolute;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    margin:0;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    color:#0b0000;
+
+    white-space:nowrap;
+
+}
+.feedback-list{
+
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    max-height:250px;
+    overflow-y:auto;
+
+}
+
+.feedback-item{
+
+    padding:10px;
+    border:1px solid #eee;
+    border-radius:8px;
+
+}
+
+.feedback-top{
+
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:4px;
+    font-size:13px;
+    font-weight:600;
+
+}
+
+.feedback-text{
+
+    font-size:13px;
+    color:#555;
+    line-height:1.4;
+
+}
+
+.feedback-empty{
+
+    text-align:center;
+    color:#999;
+    padding:30px 0;
+
+}
+
+
+
+
+/*======================================
+FEEDBACK MODAL - TABLET
+======================================*/
+
+@media (max-width:1024px){
+
+    .feedback-container{
+
+        width:92vw;
+        max-height:90vh;
+
+        display:flex;
+        flex-direction:column;
+
+    }
+
+    .feedback-body{
+
+        overflow:auto;
+        padding:18px;
+
+    }
+
+    .feedback-title,
+    .feedback-row{
+
+        grid-template-columns:15% 12% 18% 55%;
+        gap:8px;
+
+    }
+
+    .feedback-row input{
+
+        height:42px;
+        font-size:15px;
+
+    }
+
+    .feedback-footer button{
+
+        width:180px;
+        max-width:100%;
+
+    }
+
+    /*======================================
+    FEEDBACK CARD
+    ======================================*/
+
+    .feedback-card{
+
+        grid-column:span 2;
+
+    }
+
+    .feedback-list{
+
+        max-height:220px;
+
+    }
+
+}
+
+
+
+
+/*======================================
+FEEDBACK MODAL - MOBILE
+======================================*/
+
+@media (max-width:767px){
+
+    .feedback-modal{
+
+        padding:12px;
+
+    }
+
+    .feedback-container{
+
+        width:100%;
+        max-width:none;
+        max-height:95vh;
+
+        display:flex;
+        flex-direction:column;
+
+        border-radius:12px;
+
+    }
+
+    .feedback-header{
+
+        padding:14px 16px;
+
+    }
+
+    .feedback-header h3{
+
+        font-size:18px;
+
+    }
+
+    .feedback-close{
+
+        font-size:28px;
+
+    }
+
+    .feedback-body{
+
+        flex:1;
+
+        overflow:auto;
+
+        padding:16px;
+
+    }
+
+    /* Tetap 4 kolom agar struktur data tidak berubah */
+    .feedback-title,
+    .feedback-row{
+
+        min-width:620px;
+
+        grid-template-columns:
+            90px
+            70px
+            90px
+            1fr;
+
+        gap:8px;
+
+    }
+
+    .feedback-row input{
+
+        height:44px;
+        font-size:16px;
+
+    }
+
+    .feedback-footer{
+
+        justify-content:center;
+
+        padding:16px;
+
+    }
+
+    .feedback-footer button{
+
+        width:100%;
+        height:46px;
+
+    }
+
+    /*======================================
+    FEEDBACK CARD
+    ======================================*/
+
+    .feedback-card{
+
+        grid-column:auto;
+        width:100%;
+
+        min-height:auto;
+
+    }
+
+    .feedback-card-header{
+
+        flex-wrap:wrap;
+        gap:10px;
+
+    }
+
+    .feedback-list{
+
+        max-height:250px;
+
+    }
+
+    .feedback-top{
+
+        font-size:14px;
+
+    }
+
+    .feedback-text{
+
+        font-size:14px;
+
+    }
+
+}

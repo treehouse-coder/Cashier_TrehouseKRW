@@ -1,0 +1,238 @@
+/*======================================
+SUMMARY CARD
+======================================*/
+
+#summary-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+ 
+
+    overflow:hidden;
+
+}
+
+/*======================================
+SUMMARY BODY
+======================================*/
+
+.summary-body{
+
+    flex:1;
+
+    padding:12px 15px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+    justify-content:flex-start;
+
+}
+
+/*======================================
+ROW
+======================================*/
+
+.summary-row{
+
+    display:grid;
+
+    grid-template-columns:90px 1fr;
+
+    align-items:center;
+
+    min-height:22px;
+
+}
+
+.summary-row span{
+
+    font-size:14px;
+
+    font-weight:500;
+
+    color:#555;
+
+}
+
+.summary-row span::after{
+
+    content:" :";
+
+}
+
+.summary-row strong{
+
+    text-align:right;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#222;
+
+}
+
+/*======================================
+TOTAL
+======================================*/
+
+.summary-row.total{
+
+    margin:4px 0;
+
+    padding:6px 0;
+
+    border-top:2px solid #2E7D32;
+
+    border-bottom:2px solid #2E7D32;
+
+}
+
+.summary-row.total span{
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:#2E7D32;
+
+}
+
+.summary-row.total strong{
+
+    font-size:18px;
+
+    font-weight:800;
+
+    color:#2E7D32;
+
+}
+
+
+
+
+/*======================================
+SUMMARY CARD - TABLET
+======================================*/
+
+@media (max-width:1024px){
+
+    .summary-body{
+
+        padding:14px;
+
+        gap:8px;
+
+    }
+
+    .summary-row{
+
+        grid-template-columns:100px 1fr;
+
+        min-height:28px;
+
+    }
+
+    .summary-row span{
+
+        font-size:14px;
+
+    }
+
+    .summary-row strong{
+
+        font-size:15px;
+
+    }
+
+    .summary-row.total{
+
+        margin:6px 0;
+
+        padding:8px 0;
+
+    }
+
+    .summary-row.total span{
+
+        font-size:16px;
+
+    }
+
+    .summary-row.total strong{
+
+        font-size:19px;
+
+    }
+
+}
+
+
+
+/*======================================
+SUMMARY CARD - MOBILE
+======================================*/
+
+@media (max-width:767px){
+
+    #summary-card{
+
+        width:100%;
+
+    }
+
+    .summary-body{
+
+        padding:15px;
+
+        gap:10px;
+
+    }
+
+    .summary-row{
+
+        grid-template-columns:110px 1fr;
+
+        min-height:30px;
+
+    }
+
+    .summary-row span{
+
+        font-size:15px;
+
+    }
+
+    .summary-row strong{
+
+        font-size:16px;
+
+    }
+
+    .summary-row.total{
+
+        margin:8px 0;
+
+        padding:10px 0;
+
+    }
+
+    .summary-row.total span{
+
+        font-size:17px;
+
+    }
+
+    .summary-row.total strong{
+
+        font-size:20px;
+
+    }
+
+}
