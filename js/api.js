@@ -304,6 +304,24 @@ async setPeriode(date) {
 
 },
 
+/*======================================
+LOAD PERIODE
+======================================*/
+
+async loadPeriode(date) {
+
+    return await this.get(
+
+        "loadPeriode",
+
+        {
+            date: date
+        }
+
+    );
+
+},
+
     /*======================================
     CONFIG
     ======================================*/

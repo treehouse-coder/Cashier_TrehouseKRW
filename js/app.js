@@ -36,29 +36,50 @@ document.addEventListener(
 
     APP.filter.date = dateStr;
 
-    const result = await API.setPeriode(dateStr);
+    Loading.show("Memuat data...");
 
-    if(!result.success){
+    try{
 
-        Notify.error(result.message);
+        const result =
+            await API.loadPeriode(dateStr);
 
-        return;
+        if(!result.success){
+
+            Notify.error(
+                result.message
+            );
+
+            return;
+
+        }
+
+        Table.setData(
+            result.data.table
+        );
+
+        Summary.render(
+            result.data.summary
+        );
+
+        Offday.render(
+            result.data.offday
+        );
+
+        Additional.render(
+            result.data.additional
+        );
+
+        Feedback.render(
+            result.data.feedback
+        );
 
     }
 
-    await Promise.all([
+    finally{
 
-    Table.load(),
+        Loading.hide();
 
-    Summary.load(),
-
-    Offday.load(),
-
-    Additional.load(),
-
-    Feedback.load()
-
-]);
+    }
 
 }
 
@@ -73,10 +94,6 @@ APP.filter.date = periode.formatDate(
 
 );
 
-// Tulis ke Modul!L1 saat aplikasi dibuka
-await API.setPeriode(
-    APP.filter.date
-);
 
 await Config.load();
 
@@ -94,25 +111,50 @@ FeedbackModal.init();
 
 ConfigModal.init();
 
-await Promise.all([
 
-    Table.load(),
+/*======================================
+LOAD DATA AWAL
+======================================*/
 
-    Summary.load(),
+const result =
+    await API.loadPeriode(
+        APP.filter.date
+    );
 
-    Offday.load(),
+if(!result.success){
 
-    Additional.load(),
+    Notify.error(
+        result.message
+    );
 
-    Feedback.load()
+    return;
 
-]);
+}
 
 
-    }
+/*======================================
+RENDER DATA
+======================================*/
 
+Table.setData(
+    result.data.table
 );
 
+Summary.render(
+    result.data.summary
+);
+
+Offday.render(
+    result.data.offday
+);
+
+Additional.render(
+    result.data.additional
+);
+
+Feedback.render(
+    result.data.feedback
+);
 
 /*======================================
 DIGITAL CLOCK
@@ -134,3 +176,8 @@ function updateClock(){
 updateClock();
 
 setInterval(updateClock, 1000);
+
+
+
+}
+);

@@ -1,14 +1,8 @@
-/*======================================
-TREEHOUSE POS
-TABLE
-======================================*/
-
 const Table = {
 
     data: [],
 
     filter: [],
-
 
 
     /*======================================
@@ -17,84 +11,96 @@ const Table = {
 
     init() {
 
-       
+    },
+
+
+    /*======================================
+    SET DATA
+    ======================================*/
+
+    setData(data){
+
+        this.data = data || [];
+
+        this.filter = [...this.data];
+
+        this.render();
 
     },
 
+
     /*======================================
-LOADING
-======================================*/
+    LOADING
+    ======================================*/
 
-showLoading(){
+    showLoading(){
 
-    const tbody = document.getElementById(
-        "tableTransaction"
-    );
+        const tbody =
+            document.getElementById(
+                "tableTransaction"
+            );
 
+        tbody.innerHTML = `
 
-    tbody.innerHTML = `
+            <tr>
 
-        <tr>
+                <td
+                    colspan="9"
+                    style="text-align:center"
+                >
 
-            <td colspan="9" style="text-align:center">
+                    Loading data...
 
-                Loading data...
+                </td>
 
-            </td>
+            </tr>
 
-        </tr>
+        `;
 
-    `;
-
-},
-
-    
-
-  /*======================================
-LOAD
-======================================*/
-
-async load() {
+    },
 
 
-    
+    /*======================================
+    LOAD
+    ======================================*/
 
-    await Summary.load();
+    async load(){
 
-    const result = await API.getTable();
+        const result =
+            await API.getTable();
 
-    if (!result.success) {
+        if(!result.success){
 
-        Notify.error(result.message);
+            Notify.error(result.message);
 
-        return;
+            return;
 
-    }
+        }
 
-    this.data = result.data;
+        this.setData(
+            result.data
+        );
 
-    this.filter = [...this.data];
-
-    this.render();
-
-},
+    },
 
 
     /*======================================
     SEARCH
     ======================================*/
 
-    search() {
+    search(){
 
-        const keyword = document
+        const keyword =
+            document
             .getElementById("search")
             .value
             .trim()
             .toLowerCase();
 
-        if (keyword === "") {
+        if(keyword === ""){
 
-            this.filter = [...this.data];
+            this.filter =
+                [...this.data];
 
             this.render();
 
@@ -102,45 +108,47 @@ async load() {
 
         }
 
-        this.filter = this.data.filter(function(row){
+        this.filter =
+            this.data.filter(function(row){
 
-            return (
+                return (
 
-                String(row[1])
-                    .toLowerCase()
-                    .includes(keyword)
+                    String(row[1])
+                        .toLowerCase()
+                        .includes(keyword)
 
-                ||
+                    ||
 
-                String(row[4])
-                    .toLowerCase()
-                    .includes(keyword)
+                    String(row[4])
+                        .toLowerCase()
+                        .includes(keyword)
 
-            );
+                );
 
-        });
+            });
 
         this.render();
 
     },
 
 
-
     /*======================================
     RENDER
     ======================================*/
 
-    render() {
+    render(){
 
-        const tbody = document.getElementById(
-            "tableTransaction"
-        );
+        const tbody =
+            document.getElementById(
+                "tableTransaction"
+            );
 
         tbody.innerHTML = "";
 
         this.filter.forEach(function(row){
 
-            const tr = document.createElement("tr");
+            const tr =
+                document.createElement("tr");
 
             tr.innerHTML = `
 
@@ -173,12 +181,11 @@ async load() {
     },
 
 
-
     /*======================================
     TOTAL DATA
     ======================================*/
 
-    refreshTotal() {
+    refreshTotal(){
 
         document.getElementById(
             "totalData"
@@ -191,14 +198,13 @@ async load() {
     },
 
 
-
     /*======================================
     FORMAT NUMBER
     ======================================*/
 
-    formatNumber(value) {
+    formatNumber(value){
 
-        if (
+        if(
 
             value === "" ||
 
@@ -211,12 +217,7 @@ async load() {
         }
 
         return Number(value)
-
-            .toLocaleString(
-
-                "id-ID"
-
-            );
+            .toLocaleString("id-ID");
 
     }
 
