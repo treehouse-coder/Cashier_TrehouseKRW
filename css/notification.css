@@ -63,6 +63,79 @@ NOTIFICATION
 }
 
 
+/*======================================
+LOADING OVERLAY
+======================================*/
+
+.loading-overlay{
+
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: rgba(255,255,255,.75);
+
+    backdrop-filter: blur(3px);
+
+    z-index: 99999;
+
+}
+
+.loading-content{
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 16px;
+
+}
+
+.loading-spinner{
+
+    width: 56px;
+
+    height: 56px;
+
+    border: 5px solid #E0E0E0;
+
+    border-top-color: #2E7D32;
+
+    border-radius: 50%;
+
+    animation: loadingSpin .8s linear infinite;
+
+}
+
+.loading-text{
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: #333;
+
+}
+
+@keyframes loadingSpin{
+
+    to{
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+
 
 
 /*======================================

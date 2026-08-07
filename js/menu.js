@@ -103,34 +103,33 @@ document.getElementById("btnFeedback").addEventListener("click", () => {
 
 document
 .getElementById("btnPrint")
-.addEventListener(
+.addEventListener("click", async()=>{
 
-    "click",
+    document.querySelector(".fab-container").style.display = "none";
 
-    async()=>{
-        document.querySelector(".fab-container").style.display = "none";
+    Loading.show("Membuat PDF...");
+
+    try{
 
         const result = await API.print();
 
         if(result.success){
 
-            Notify.success(
+            Notify.success("PDF berhasil dibuat.");
 
-                "PDF berhasil dibuat."
-        
-            );
-document.querySelector(".fab-container").style.display = "flex";
         }else{
 
-            Notify.error(
-
-                result.message
-
-            );
+            Notify.error(result.message);
 
         }
 
+    }finally{
+
+        Loading.hide();
+
+        document.querySelector(".fab-container").style.display = "flex";
+
     }
 
-);
+});
 

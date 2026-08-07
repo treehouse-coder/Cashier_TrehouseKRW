@@ -143,3 +143,49 @@ const Button = {
     }
 
 };
+
+/*======================================
+LOADING
+======================================*/
+
+const Loading = {
+
+    overlay: null,
+
+    text: null,
+
+    init(){
+
+        this.overlay = document.getElementById("loadingOverlay");
+
+        this.text = document.getElementById("loadingText");
+
+    },
+
+    show(message = "Loading..."){
+
+        if(!this.overlay){
+
+            this.init();
+
+        }
+
+        this.text.textContent = message;
+
+        this.overlay.style.display = "flex";
+
+    },
+
+    hide(){
+
+        if(!this.overlay){
+
+            return;
+
+        }
+
+        this.overlay.style.display = "none";
+
+    }
+
+};
