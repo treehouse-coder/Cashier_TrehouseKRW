@@ -127,7 +127,7 @@ SAVE
                 );
 
                 this.close();
-                await config.config.load();
+                await Config.loadConfig();
                 
 
             }
