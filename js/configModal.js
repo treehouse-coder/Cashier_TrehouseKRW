@@ -125,9 +125,9 @@ SAVE
                 Notify.success(
                     "Config berhasil disimpan."
                 );
-
+await Config.loadConfig();
                 this.close();
-                await Config.loadConfig();
+                
                 
 
             }
