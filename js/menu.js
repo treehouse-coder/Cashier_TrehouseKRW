@@ -68,6 +68,18 @@ document.getElementById("btnOffday").addEventListener("click", () => {
 
 });
 
+document
+.getElementById("btnTherapistOmset")
+.addEventListener("click", () => {
+
+    fabMenu.classList.remove("show");
+
+    fabButton.classList.remove("active");
+
+    TherapistOmset.open();
+
+});
+
 
 document.getElementById("btnGiftcard").addEventListener("click", () => {
 

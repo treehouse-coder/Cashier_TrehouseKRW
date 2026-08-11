@@ -1118,6 +1118,46 @@ CONGIG MODAL
 
 </div>
 
+<!--======================================
+THERAPIST OMSET MODAL
+======================================-->
+
+<div class="modal-overlay" id="therapistOmsetModal">
+
+    <div class="therapist-omset-modal">
+
+        <div class="therapist-omset-header">
+
+            <h3>Therapist Omset</h3>
+
+            <button
+                type="button"
+                class="therapist-omset-close"
+                onclick="TherapistOmset.close()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="therapist-omset-body">
+
+            <div class="therapist-omset-table-wrapper">
+
+                <table
+                    class="therapist-omset-table"
+                    id="therapistOmsetTable"
+                ></table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <!-- ======================================
 FLOATING MENU
@@ -1143,6 +1183,10 @@ FLOATING MENU
 
             ➕ <span>Additional</span>
 
+        </button>
+
+        <button class="fab-item" id="btnTherapistOmset">
+            👤 <span>Therapist Omset</span>
         </button>
 
      
@@ -1209,6 +1253,7 @@ LOADING OVERLAY
     <script src="js/menu.js"></script>
     <script src="js/offday.js"></script>
     <script src="js/additional.js"></script>
+    <script src="js/therapistOmset.js"></script>
     <script src="js/feedback.js"></script>
     <script src="js/configModal.js"></script>
     <script src="js/print.js"></script>

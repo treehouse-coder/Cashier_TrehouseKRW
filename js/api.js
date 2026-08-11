@@ -284,6 +284,8 @@ async getConfigModal(){
 
 },
 
+
+
     /*======================================
 PERIODE
 ======================================*/
@@ -595,6 +597,22 @@ async searchOffday(date){
     );
 
 },
+
+
+/*======================================
+*THERAPIST OMSET*
+======================================*/
+
+async getTherapistOmset(){
+
+    return await this.get(
+
+        "therapistOmset"
+
+    );
+
+},
+
 
 /*======================================
 PRINT
