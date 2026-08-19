@@ -80,6 +80,20 @@ document
 
 });
 
+document
+    .getElementById("btnLoyalty")
+    .addEventListener(
+        "click",
+        () => {
+
+            window.open(
+                "https://treehouse-coder.github.io/Loyalty/",
+                "_blank"
+            );
+
+        }
+    );
+
 
 document.getElementById("btnGiftcard").addEventListener("click", () => {
 
