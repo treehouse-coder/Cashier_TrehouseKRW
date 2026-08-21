@@ -53,38 +53,80 @@ TRANSACTION FORM
 
 }
 
-.transaction-form .form-group select{
+.transaction-form .form-group select {
 
     width: 100%;
     height: 30px;
 
     padding: 0 12px;
 
-    border: 1px solid #cfd8dc;
+    border: 1px solid rgba(123, 198, 126, 0.45);
     border-radius: 8px;
 
-    background: #ffffff;
-    color: #333;
+    /* Soft Glass */
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    color: #2f3b30;
 
     font-size: 13px;
+    font-weight: 500;
 
     outline: none;
-    transition: .2s;
+
+    /* Soft 3D */
+    box-shadow:
+        0 2px 4px rgba(0, 70, 20, 0.08),
+        0 6px 14px rgba(0, 70, 20, 0.10),
+        inset 0 1px 1px rgba(255, 255, 255, 0.9);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease,
+        background .2s ease;
 
 }
 
-.transaction-form .form-group select:hover{
 
-    border-color: #7bc67e;
+/* HOVER */
+
+.transaction-form .form-group select:hover {
+
+    background: rgba(255, 255, 255, 0.92);
+
+    border-color: rgba(67, 160, 71, 0.65);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 4px 7px rgba(0, 70, 20, 0.10),
+        0 10px 20px rgba(0, 70, 20, 0.12),
+        inset 0 1px 2px rgba(255, 255, 255, 0.95);
 
 }
 
-.transaction-form .form-group select:focus{
+
+/* FOCUS */
+
+.transaction-form .form-group select:focus {
+
+    background: rgba(255, 255, 255, 0.95);
 
     border-color: #43a047;
-    box-shadow: 0 0 0 3px rgba(67,160,71,.15);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 8px rgba(0, 70, 20, 0.10),
+        0 8px 18px rgba(67, 160, 71, 0.18),
+        0 0 0 3px rgba(67, 160, 71, 0.10),
+        inset 0 1px 2px rgba(255, 255, 255, 0.95);
 
 }
+
+
 
 #btnSave{
 

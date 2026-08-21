@@ -30,20 +30,23 @@ NORMAL STATUS
 
 #btnHoliday.normal {
 
-    background: #2e7d32;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 
+    color: #ffffff;
+
+    transition: color .2s ease, transform .15s ease;
 }
-
 
 
 /* Hover NORMAL */
 
 #btnHoliday.normal:hover {
 
-    background: #1b5e20;
+    color: #dcedc8;
 
 }
-
 
 
 /*======================================
@@ -52,20 +55,23 @@ HOLIDAY STATUS
 
 #btnHoliday.holiday {
 
-    background: #c62828;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 
+    color: #ff5252;
+
+    transition: color .2s ease, transform .15s ease;
 }
-
 
 
 /* Hover HOLIDAY */
 
 #btnHoliday.holiday:hover {
 
-    background: #8e0000;
+    color: #ff8a80;
 
 }
-
 
 
 /*======================================
