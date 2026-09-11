@@ -6,28 +6,41 @@ EDIT.JS
 const Edit = (() => {
 
     let selectedRow = null;
-    let debounceTimer = null;
 
     /*======================================
     ELEMENT
     ======================================*/
 
-    const modal = document.getElementById("editModal");
+    const modal =
+        document.getElementById("editModal");
 
-    const searchInput = document.getElementById("searchTherapist");
-    const tableBody = document.getElementById("editTable");
+    const therapist =
+        document.getElementById("editTherapist");
 
-    const therapist = document.getElementById("editTherapist");
-    const timein = document.getElementById("editTime");
-    const treatment = document.getElementById("editTreatment");
-    const gift = document.getElementById("editGift");
-    const happy = document.getElementById("editHappy");
-    const paid = document.getElementById("editPaid");
+    const timein =
+        document.getElementById("editTime");
 
-    const btnClose = document.getElementById("btnCloseModal");
-    const btnCancel = document.getElementById("btnCancel");
-    const btnUpdate = document.getElementById("btnUpdate");
-    const btnEdit = document.getElementById("btnEdit");
+    const treatment =
+        document.getElementById("editTreatment");
+
+    const gift =
+        document.getElementById("editGift");
+
+    const happy =
+        document.getElementById("editHappy");
+
+    const paid =
+        document.getElementById("editPaid");
+
+    const btnClose =
+        document.getElementById("btnCloseModal");
+
+    const btnCancel =
+        document.getElementById("btnCancel");
+
+    const btnUpdate =
+        document.getElementById("btnUpdate");
+
 
     /*======================================
     INIT
@@ -35,39 +48,227 @@ const Edit = (() => {
 
     function init() {
 
-    btnEdit.addEventListener("click", open);
+        btnClose.addEventListener(
+            "click",
+            close
+        );
 
-    btnClose.addEventListener("click", close);
+        btnCancel.addEventListener(
+            "click",
+            close
+        );
 
-    btnCancel.addEventListener("click", close);
+        btnUpdate.addEventListener(
+            "click",
+            update
+        );
 
-    btnUpdate.addEventListener("click", update);
+    }
 
-    searchInput.addEventListener("input", () => {
-
-        clearTimeout(debounceTimer);
-
-        debounceTimer = setTimeout(search, 300);
-
-    });
-
-}
 
     /*======================================
-    OPEN
+    OPEN ROW
     ======================================*/
 
-    function open() {
+    async function openRow(row) {
+
+        if (!row) {
+
+            Notify.error(
+                "Data transaksi tidak ditemukan."
+            );
+
+            return;
+
+        }
+
+
+        const selectedTherapist =
+            String(
+                row.therapist || ""
+            ).trim();
+
+
+        const selectedTime =
+            String(
+                row.timein || ""
+            ).trim();
+
+
+        if (
+            selectedTherapist === "" ||
+            selectedTime === ""
+        ) {
+
+            Notify.error(
+                "Therapist atau jam in tidak ditemukan."
+            );
+
+            return;
+
+        }
+
+
+        /*==================================
+        BUKA MODAL
+        ==================================*/
 
         modal.classList.add("show");
 
-        document.querySelector(".fab-container").style.display = "none";
+
+        const fab =
+            document.querySelector(
+                ".fab-container"
+            );
+
+        if (fab) {
+
+            fab.style.display = "none";
+
+        }
+
 
         clear();
 
-        searchInput.focus();
+
+        therapist.value =
+            selectedTherapist;
+
+        timein.value =
+            selectedTime;
+
+
+        /*==================================
+        LOADING
+        ==================================*/
+
+        therapist.disabled = true;
+
+        timein.disabled = true;
+
+        treatment.disabled = true;
+
+        gift.disabled = true;
+
+        happy.disabled = true;
+
+        paid.disabled = true;
+
+
+        try {
+
+            const result =
+                await API.searchTransaction(
+
+                    APP.filter.date,
+
+                    selectedTherapist,
+
+                    selectedTime
+
+                );
+
+
+            if (!result.success) {
+
+                Notify.error(
+                    result.message
+                );
+
+                close();
+
+                return;
+
+            }
+
+
+            if (
+                !result.data ||
+                result.data.length === 0
+            ) {
+
+                Notify.error(
+                    "Transaksi tidak ditemukan."
+                );
+
+                close();
+
+                return;
+
+            }
+
+
+            /*================================
+            HASIL TRANSACTION
+            =================================*/
+
+            const item =
+                result.data[0];
+
+
+            selectedRow =
+                item.row;
+
+
+            therapist.value =
+                item.therapist || "";
+
+
+            timein.value =
+                item.timein
+                    ? String(item.timein)
+                        .padStart(5, "0")
+                    : "";
+
+
+            treatment.value =
+                item.treatment || "";
+
+
+            gift.value =
+                item.gift || "";
+
+
+            happy.value =
+                item.happy || "";
+
+
+            paid.value =
+                item.paid || "";
+
+
+        }
+
+        catch (err) {
+
+            console.error(err);
+
+            Notify.error(
+                "Gagal mengambil data transaksi."
+            );
+
+            close();
+
+        }
+
+        finally {
+
+            therapist.disabled = false;
+
+            timein.disabled = false;
+
+            treatment.disabled = false;
+
+            gift.disabled = false;
+
+            happy.disabled = false;
+
+            paid.disabled = false;
+
+        }
 
     }
+
 
     /*======================================
     CLOSE
@@ -76,11 +277,24 @@ const Edit = (() => {
     function close() {
 
         modal.classList.remove("show");
-        document.querySelector(".fab-container").style.display = "flex";
+
+
+        const fab =
+            document.querySelector(
+                ".fab-container"
+            );
+
+        if (fab) {
+
+            fab.style.display = "flex";
+
+        }
+
 
         clear();
 
     }
+
 
     /*======================================
     CLEAR
@@ -90,264 +304,205 @@ const Edit = (() => {
 
         selectedRow = null;
 
-        searchInput.value = "";
-
-        tableBody.innerHTML = "";
 
         therapist.value = "";
+
         timein.value = "";
+
         treatment.value = "";
+
         gift.value = "";
+
         happy.value = "";
+
         paid.value = "";
 
     }
 
-    /*======================================
-    SEARCH
-    ======================================*/
-
-    async function search() {
-
-    const keyword = searchInput.value.trim();
-
-    if (keyword === "") {
-
-        tableBody.innerHTML = "";
-
-        return;
-
-    }
-
-    try {
-
-        const res = await API.searchTransaction(
-
-            APP.filter.date,
-
-            keyword
-
-        );
-
-        if (res.success) {
-
-            render(res.data);
-
-        } else {
-
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="6" style="text-align:center">
-                        ${res.message}
-                    </td>
-                </tr>
-            `;
-
-        }
-
-    } catch (err) {
-
-        console.error(err);
-
-    }
-
-}
 
     /*======================================
-    RENDER
+    UPDATE
     ======================================*/
 
-    function render(data) {
+    async function update() {
 
-        tableBody.innerHTML = "";
+        if (!selectedRow) {
 
-        if (!data || data.length === 0) {
-
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="6" style="text-align:center">
-                        Data tidak ditemukan
-                    </td>
-                </tr>
-            `;
+            Notify.error(
+                "Transaksi belum dipilih."
+            );
 
             return;
 
         }
 
-        data.forEach(item => {
 
-            const tr = document.createElement("tr");
+        if (
+            therapist.value.trim() === ""
+        ) {
 
-            tr.dataset.row = item.row;
-
-            tr.innerHTML = `
-                <td>${item.therapist}</td>
-                <td>${item.timein}</td>
-                <td>${item.treatment}</td>
-                <td>${item.gift || "-"}</td>
-                <td>${item.happy}</td>
-                <td>${item.paid}</td>
-            `;
-
-            tr.addEventListener("click", () => {
-
-                tableBody.querySelectorAll("tr").forEach(r => {
-
-                    r.classList.remove("selected");
-
-                });
-
-                tr.classList.add("selected");
-
-                selectedRow = item.row;
-
-                therapist.value = item.therapist;
-                timein.value = item.timein
-                    ? item.timein.padStart(5, "0")
-                    : "";
-                treatment.value = item.treatment;
-                gift.value = item.gift;
-                happy.value = item.happy;
-                paid.value = item.paid;
-
-            });
-
-            tableBody.appendChild(tr);
-
-        });
-
-    }
-/*======================================
-UPDATE
-======================================*/
-
-async function update() {
-
-    if (!selectedRow) {
-
-        Notify.error("Pilih transaksi terlebih dahulu.");
-
-        return;
-
-    }
-
-    if (therapist.value === "") {
-
-        Notify.error("Pilih therapist.");
-
-        therapist.focus();
-
-        return;
-
-    }
-
-    if (timein.value === "") {
-
-        Notify.error("Time In belum diisi.");
-
-        timein.focus();
-
-        return;
-
-    }
-
-    if (treatment.value === "") {
-
-        Notify.error("Pilih treatment.");
-
-        treatment.focus();
-
-        return;
-
-    }
-
-    if (paid.value === "") {
-
-        Notify.error("Pilih metode pembayaran.");
-
-        paid.focus();
-
-        return;
-
-    }
-
-    await Button.loading(btnUpdate, async () => {
-
-        try {
-
-            const result = await API.updateTransaction({
-
-                row: selectedRow,
-
-                therapist: therapist.value,
-
-                timein: timein.value,
-
-                treatment: treatment.value,
-
-                gift: gift.value,
-
-                happy: happy.value,
-
-                paid: paid.value
-
-            });
-
-            if (!result.success) {
-
-                Notify.error(result.message);
-
-                return;
-
-            }
-
-            Notify.success("Transaksi berhasil diperbarui.");
-
-            close();
-
-            await new Promise(resolve =>
-                setTimeout(resolve, 300)
+            Notify.error(
+                "Therapist belum diisi."
             );
 
-            await Table.load();
-            await Summary.load();
+            therapist.focus();
+
+            return;
 
         }
 
-        catch (err) {
 
-            console.error(err);
+        if (
+            timein.value.trim() === ""
+        ) {
 
-            Notify.error("Gagal memperbarui transaksi.");
+            Notify.error(
+                "Time In belum diisi."
+            );
+
+            timein.focus();
+
+            return;
 
         }
 
-    });
 
-}
-/*======================================
-PUBLIC
-======================================*/
+        if (
+            treatment.value.trim() === ""
+        ) {
 
-return {
+            Notify.error(
+                "Pilih treatment."
+            );
 
-    init,
-    open,
-    close
+            treatment.focus();
 
-};
+            return;
+
+        }
+
+
+        if (
+            paid.value.trim() === ""
+        ) {
+
+            Notify.error(
+                "Pilih metode pembayaran."
+            );
+
+            paid.focus();
+
+            return;
+
+        }
+
+
+        await Button.loading(
+            btnUpdate,
+            async () => {
+
+                try {
+
+                    const result =
+                        await API.updateTransaction({
+
+                            row:
+                                selectedRow,
+
+                            therapist:
+                                therapist.value,
+
+                            timein:
+                                timein.value,
+
+                            treatment:
+                                treatment.value,
+
+                            gift:
+                                gift.value,
+
+                            happy:
+                                happy.value,
+
+                            paid:
+                                paid.value
+
+                        });
+
+
+                    if (!result.success) {
+
+                        Notify.error(
+                            result.message
+                        );
+
+                        return;
+
+                    }
+
+
+                    Notify.success(
+                        "Transaksi berhasil diperbarui."
+                    );
+
+
+                    close();
+
+
+                    await new Promise(
+                        resolve =>
+                            setTimeout(
+                                resolve,
+                                300
+                            )
+                    );
+
+
+                    await Table.load();
+
+                    await Summary.load();
+
+
+                }
+
+                catch (err) {
+
+                    console.error(err);
+
+                    Notify.error(
+                        "Gagal memperbarui transaksi."
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /*======================================
+    PUBLIC
+    ======================================*/
+
+    return {
+
+        init,
+
+        openRow,
+
+        close
+
+    };
 
 })();
 
+
 document.addEventListener(
-
     "DOMContentLoaded",
-
     () => {
 
         Edit.init();
 
     }
-
 );

@@ -138,47 +138,87 @@ const Table = {
 
     render(){
 
-        const tbody =
-            document.getElementById(
-                "tableTransaction"
-            );
+    const tbody =
+        document.getElementById(
+            "tableTransaction"
+        );
 
-        tbody.innerHTML = "";
+    tbody.innerHTML = "";
 
-        this.filter.forEach(function(row){
+    this.filter.forEach(function(row){
 
-            const tr =
-                document.createElement("tr");
+        const tr =
+            document.createElement("tr");
 
-            tr.innerHTML = `
+        tr.innerHTML = `
 
-                <td>${row[0]}</td>
+            <td>${row[0]}</td>
 
-                <td>${row[1]}</td>
+            <td>${row[1]}</td>
 
-                <td>${row[2]}</td>
+            <td>${row[2]}</td>
 
-                <td>${row[3]}</td>
+            <td>${row[3]}</td>
 
-                <td>${row[4]}</td>
+            <td>${row[4]}</td>
 
-                <td>${row[5]}</td>
+            <td>${row[5]}</td>
 
-                <td>${row[6]}</td>
+            <td>${row[6]}</td>
 
-                <td>${row[7]}</td>
+            <td>${row[7]}</td>
 
-                <td>${row[8]}</td>
+            <td>${row[8]}</td>
 
-            `;
+        `;
 
-            tbody.appendChild(tr);
+
+        /*======================================
+        CLICK ROW
+        ======================================*/
+
+        tr.addEventListener("click", function(){
+
+            const therapist =
+                String(row[1] || "").trim();
+
+            const timein =
+                String(row[2] || "").trim();
+
+
+            if(
+                therapist === "" ||
+                timein === ""
+            ){
+
+                Notify.error(
+                    "Data therapist atau jam in tidak ditemukan."
+                );
+
+                return;
+
+            }
+
+
+            Edit.openRow({
+
+                therapist: therapist,
+
+                timein: timein
+
+            });
 
         });
 
-        this.refreshTotal();
 
-    },
+        tbody.appendChild(tr);
+
+    });
+
+
+    this.refreshTotal();
+
+},
 
 
     /*======================================

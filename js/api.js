@@ -392,23 +392,16 @@ async loadPeriode(date) {
     EDIT
     ======================================*/
 
-    async searchTransaction(date, therapist) {
-
-        return await this.get(
-
-            "searchTransaction",
-
-            {
-
-                date: date,
-
-                therapist: therapist
-
-            }
-
-        );
-
-    },
+    async searchTransaction(date, therapist, timein) {
+    return await this.get(
+        "searchTransaction",
+        {
+            date: date,
+            therapist: therapist,
+            timein: timein
+        }
+    );
+},
 
 
 
