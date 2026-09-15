@@ -1,3 +1,4 @@
+
 /*======================================
 TREEHOUSE POS
 API
@@ -22,12 +23,13 @@ const API = {
 
 
     /*======================================
-GET
-======================================*/
+    GET
+    ======================================*/
 
-async get(action, params = {}) {
+    async get(action, params = {}) {
 
-    try {
+        const MAX_RETRY = 2;
+        const TIMEOUT = 15000;
 
         const query = new URLSearchParams({
 
@@ -37,57 +39,219 @@ async get(action, params = {}) {
 
         });
 
-        const response = await fetch(
+        const url = `${this.url}?${query.toString()}`;
 
-            `${this.url}?${query.toString()}`
 
-        );
+        /*======================================
+        RETRY
+        ======================================*/
 
-        const text = await response.text();
+        for (let attempt = 0; attempt <= MAX_RETRY; attempt++) {
 
-        try{
+            let controller;
+            let timeoutId;
 
-            return JSON.parse(text);
+            try {
+
+                console.log(
+                    `API GET → ${action} | Attempt ${attempt + 1}/${MAX_RETRY + 1}`
+                );
+
+
+                /*======================================
+                ABORT CONTROLLER
+                ======================================*/
+
+                controller = new AbortController();
+
+
+                /*======================================
+                TIMEOUT
+                ======================================*/
+
+                timeoutId = setTimeout(() => {
+
+                    controller.abort();
+
+                }, TIMEOUT);
+
+
+                /*======================================
+                FETCH
+                ======================================*/
+
+                const response = await fetch(
+
+                    url,
+
+                    {
+
+                        method: "GET",
+
+                        signal: controller.signal
+
+                    }
+
+                );
+
+
+                /*======================================
+                CLEAR TIMEOUT
+                ======================================*/
+
+                clearTimeout(timeoutId);
+
+
+                /*======================================
+                RESPONSE
+                ======================================*/
+
+                const text = await response.text();
+
+
+                /*======================================
+                JSON
+                ======================================*/
+
+                try {
+
+                    return JSON.parse(text);
+
+                }
+
+                catch(err) {
+
+                    console.error(
+                        "========== RESPONSE BUKAN JSON =========="
+                    );
+
+                    console.error(
+                        "Action :",
+                        action
+                    );
+
+                    console.error(
+                        "Response :",
+                        text
+                    );
+
+                    return {
+
+                        success: false,
+
+                        message: "Response bukan JSON",
+
+                        data: text
+
+                    };
+
+                }
+
+            }
+
+            catch(err) {
+
+                /*======================================
+                CLEAR TIMEOUT
+                ======================================*/
+
+                if (timeoutId) {
+
+                    clearTimeout(timeoutId);
+
+                }
+
+
+                /*======================================
+                ERROR MESSAGE
+                ======================================*/
+
+                let message = err.message;
+
+                if (err.name === "AbortError") {
+
+                    message = "Request timeout";
+
+                }
+
+
+                console.warn(
+
+                    `API GET gagal → ${action}`,
+
+                    `| Attempt ${attempt + 1}/${MAX_RETRY + 1}`,
+
+                    `| ${message}`
+
+                );
+
+
+                /*======================================
+                RETRY
+                ======================================*/
+
+                if (attempt < MAX_RETRY) {
+
+                    const delay = 1000 * (attempt + 1);
+
+                    console.log(
+
+                        `Retry ${action} dalam ${delay / 1000} detik...`
+
+                    );
+
+
+                    await new Promise(resolve => {
+
+                        setTimeout(
+
+                            resolve,
+
+                            delay
+
+                        );
+
+                    });
+
+                    continue;
+
+                }
+
+
+                /*======================================
+                SEMUA RETRY GAGAL
+                ======================================*/
+
+                console.error(
+                    "========== API GET GAGAL =========="
+                );
+
+                console.error(
+                    "Action :",
+                    action
+                );
+
+                console.error(
+                    "Error :",
+                    message
+                );
+
+
+                return {
+
+                    success: false,
+
+                    message: message,
+
+                    data: null
+
+                };
+
+            }
 
         }
 
-        catch(err){
-
-            console.error("========== RESPONSE BUKAN JSON ==========");
-            console.error("Action :", action);
-            console.error(text);
-
-            return {
-
-                success:false,
-
-                message:"Response bukan JSON",
-
-                data:text
-
-            };
-
-        }
-
-    }
-
-    catch(err){
-
-        console.error(err);
-
-        return {
-
-            success:false,
-
-            message:err.message,
-
-            data:null
-
-        };
-
-    }
-
-},
+    },
 
 
 
@@ -97,232 +261,255 @@ async get(action, params = {}) {
 
     async post(data) {
 
-    try {
+        try {
 
-        const response = await fetch(
+            const response = await fetch(
 
-            this.url,
+                this.url,
+
+                {
+                    method: "POST",
+
+                    body: new URLSearchParams(data)
+
+                }
+
+            );
+
+
+            return await response.json();
+
+        }
+
+        catch(err) {
+
+            console.error(err);
+
+            return {
+
+                success: false,
+
+                message: err.message,
+
+                data: null
+
+            };
+
+        }
+
+    },
+
+
+
+    /*======================================
+    GET ADDITIONAL
+    ======================================*/
+
+    async getAdditional() {
+
+        return await this.get(
+
+            "getAdditional"
+
+        );
+
+    },
+
+
+
+    /*======================================
+    SEARCH ADDITIONAL
+    ======================================*/
+
+    async searchAdditional(date) {
+
+        return await this.get(
+
+            "searchAdditional",
 
             {
-                method: "POST",
 
-                body: new URLSearchParams(data)
+                date
 
             }
 
         );
 
-
-        return await response.json();
-
-    }
-
-    catch(err){
-
-        console.error(err);
-
-        return {
-
-            success:false,
-
-            message:err.message,
-
-            data:null
-
-        };
-
-    }
-
-},
-
-
-/*======================================
-GET ADDITIONAL
-======================================*/
-
-async getAdditional(){
-
-    return await this.get(
-
-        "getAdditional"
-
-    );
-
-},
-
-/*======================================
-SEARCH ADDITIONAL
-======================================*/
-
-async searchAdditional(date){
-
-    return await this.get(
-
-        "searchAdditional",
-
-        {
-
-            date
-
-        }
-
-    );
-
-},
-
-/*======================================
-SAVE ADDITIONAL
-======================================*/
-
-async saveAdditional(date,rows){
-
-    return await this.post({
-
-        action:"saveAdditional",
-
-        date,
-
-        rows:JSON.stringify(rows)
-
-    });
-
-},
-
-/*======================================
-GET FEEDBACK
-======================================*/
-
-async getFeedback(){
-
-    return await this.get(
-
-        "feedback"
-
-    );
-
-},
-
-/*======================================
-SEARCH FEEDBACK
-======================================*/
-
-async searchFeedback(date){
-
-    return await this.get(
-
-        "searchFeedback",
-
-        {
-
-            date
-
-        }
-
-    );
-
-},
-
-/*======================================
-SAVE FEEDBACK
-======================================*/
-
-async saveFeedback(date,rows){
-
-    return await this.post({
-
-        action:"saveFeedback",
-
-        date,
-
-        rows:JSON.stringify(rows)
-
-    });
-
-},
-
-/*======================================
-GET CONFIG MODAL
-======================================*/
-
-async getConfigData(){
-
-    return await this.get(
-
-        "searchConfig"
-
-    );
-
-},
-
-/*======================================
-SAVE CONFIG MODAL
-======================================*/
-
-async saveConfigData(names){
-
-    return await this.post({
-
-        action:"saveConfig",
-
-        names:JSON.stringify(names)
-
-    });
-
-},
-
-/*======================================
-GET CONFIG MODAL
-======================================*/
-
-async getConfigModal(){
-
-    return await this.get(
-
-        "getConfigModal"
-
-    );
-
-},
+    },
 
 
 
     /*======================================
-PERIODE
-======================================*/
+    SAVE ADDITIONAL
+    ======================================*/
 
-async setPeriode(date) {
+    async saveAdditional(date, rows) {
 
-    return await this.get(
+        return await this.post({
 
-        "setPeriode",
+            action: "saveAdditional",
 
-        {
+            date,
 
-            date: date
+            rows: JSON.stringify(rows)
 
-        }
+        });
 
-    );
+    },
 
-},
 
-/*======================================
-LOAD PERIODE
-======================================*/
 
-async loadPeriode(date) {
+    /*======================================
+    GET FEEDBACK
+    ======================================*/
 
-    return await this.get(
+    async getFeedback() {
 
-        "loadPeriode",
+        return await this.get(
 
-        {
-            date: date
-        }
+            "feedback"
 
-    );
+        );
 
-},
+    },
+
+
+
+    /*======================================
+    SEARCH FEEDBACK
+    ======================================*/
+
+    async searchFeedback(date) {
+
+        return await this.get(
+
+            "searchFeedback",
+
+            {
+
+                date
+
+            }
+
+        );
+
+    },
+
+
+
+    /*======================================
+    SAVE FEEDBACK
+    ======================================*/
+
+    async saveFeedback(date, rows) {
+
+        return await this.post({
+
+            action: "saveFeedback",
+
+            date,
+
+            rows: JSON.stringify(rows)
+
+        });
+
+    },
+
+
+
+    /*======================================
+    GET CONFIG MODAL
+    ======================================*/
+
+    async getConfigData() {
+
+        return await this.get(
+
+            "searchConfig"
+
+        );
+
+    },
+
+
+
+    /*======================================
+    SAVE CONFIG MODAL
+    ======================================*/
+
+    async saveConfigData(names) {
+
+        return await this.post({
+
+            action: "saveConfig",
+
+            names: JSON.stringify(names)
+
+        });
+
+    },
+
+
+
+    /*======================================
+    GET CONFIG MODAL
+    ======================================*/
+
+    async getConfigModal() {
+
+        return await this.get(
+
+            "getConfigModal"
+
+        );
+
+    },
+
+
+
+    /*======================================
+    PERIODE
+    ======================================*/
+
+    async setPeriode(date) {
+
+        return await this.get(
+
+            "setPeriode",
+
+            {
+
+                date: date
+
+            }
+
+        );
+
+    },
+
+
+
+    /*======================================
+    LOAD PERIODE
+    ======================================*/
+
+    async loadPeriode(date) {
+
+        return await this.get(
+
+            "loadPeriode",
+
+            {
+
+                date: date
+
+            }
+
+        );
+
+    },
+
+
 
     /*======================================
     CONFIG
@@ -393,15 +580,24 @@ async loadPeriode(date) {
     ======================================*/
 
     async searchTransaction(date, therapist, timein) {
-    return await this.get(
-        "searchTransaction",
-        {
-            date: date,
-            therapist: therapist,
-            timein: timein
-        }
-    );
-},
+
+        return await this.get(
+
+            "searchTransaction",
+
+            {
+
+                date: date,
+
+                therapist: therapist,
+
+                timein: timein
+
+            }
+
+        );
+
+    },
 
 
 
@@ -417,208 +613,238 @@ async loadPeriode(date) {
 
     },
 
+
+
     /*======================================
-TABLE
-======================================*/
+    TABLE
+    ======================================*/
 
-async getTable() {
+    async getTable() {
 
-    return await this.get(
+        return await this.get(
 
-        "table"
+            "table"
 
-    );
+        );
 
-},
+    },
 
-/*======================================
-GET OFFDAY
-======================================*/
 
-async getOffday() {
 
-    return await this.get(
+    /*======================================
+    GET OFFDAY
+    ======================================*/
 
-        "getOffday"
+    async getOffday() {
 
-    );
+        return await this.get(
 
-},
+            "getOffday"
 
-/*======================================
-GET OMSET SUMMARY
-======================================*/
+        );
 
-async getSummary(){
+    },
 
-    return await this.get("summary");
 
-},
 
-/*======================================
-GET GIFT CARD
-======================================*/
+    /*======================================
+    GET OMSET SUMMARY
+    ======================================*/
 
-async getGiftCard() {
+    async getSummary() {
 
-    return await this.get(
-        "giftcard"
-    );
+        return await this.get(
 
-},
+            "summary"
 
-/*======================================
-GIFT FORM
-======================================*/
+        );
 
-async getGiftForm(){
+    },
 
-    return await this.get(
 
-        "giftForm"
 
-    );
+    /*======================================
+    GET GIFT CARD
+    ======================================*/
 
-},
+    async getGiftCard() {
 
-/*======================================
-SAVE GIFT CARD
-======================================*/
+        return await this.get(
 
-async saveGiftCard(data){
+            "giftcard"
 
-    return await this.post({
+        );
 
-        action:"saveGiftCard",
+    },
 
-        ...data
 
-    });
 
-},
+    /*======================================
+    GIFT FORM
+    ======================================*/
 
-/*======================================
-SET GIFT PERIODE
-======================================*/
+    async getGiftForm() {
 
-async setGiftPeriode(date){
+        return await this.get(
 
-    return await this.get(
+            "giftForm"
 
-        "setGiftPeriode",
+        );
 
-        {
+    },
 
-            date:date
 
-        }
 
-    );
+    /*======================================
+    SAVE GIFT CARD
+    ======================================*/
 
-},
+    async saveGiftCard(data) {
 
-/*======================================
-SEARCH GIFT CARD
-======================================*/
+        return await this.post({
 
-async searchGiftCard(id){
+            action: "saveGiftCard",
 
-    return await this.get(
+            ...data
 
-        "searchGiftCard",
+        });
 
-        {
+    },
 
-            id:id
 
-        }
 
-    );
+    /*======================================
+    SET GIFT PERIODE
+    ======================================*/
 
-},
+    async setGiftPeriode(date) {
 
-/*======================================
-USE GIFT CARD
-======================================*/
+        return await this.get(
 
-async useGiftCard(data){
+            "setGiftPeriode",
 
-    return await this.post({
+            {
 
-        action:"useGiftCard",
+                date: date
 
-        ...data
+            }
 
-    });
+        );
 
-},
+    },
 
-/*======================================
-SAVE OFFDAY
-======================================*/
 
-async saveOffday(date,names){
 
-    return await this.post({
+    /*======================================
+    SEARCH GIFT CARD
+    ======================================*/
 
-        action:"saveOffday",
+    async searchGiftCard(id) {
 
-        date,
+        return await this.get(
 
-        names:JSON.stringify(names)
+            "searchGiftCard",
 
-    });
+            {
 
-},
+                id: id
 
-/*======================================
-SEARCH OFFDAY
-======================================*/
+            }
 
-async searchOffday(date){
+        );
 
-    return await this.get(
+    },
 
-        "searchOffday",
 
-        {
 
-            date
+    /*======================================
+    USE GIFT CARD
+    ======================================*/
 
-        }
+    async useGiftCard(data) {
 
-    );
+        return await this.post({
 
-},
+            action: "useGiftCard",
 
+            ...data
 
-/*======================================
-*THERAPIST OMSET*
-======================================*/
+        });
 
-async getTherapistOmset(){
+    },
 
-    return await this.get(
 
-        "therapistOmset"
 
-    );
+    /*======================================
+    SAVE OFFDAY
+    ======================================*/
 
-},
+    async saveOffday(date, names) {
 
+        return await this.post({
 
-/*======================================
-PRINT
-======================================*/
+            action: "saveOffday",
 
-async print(){
+            date,
 
-    return await this.post({
+            names: JSON.stringify(names)
 
-        action:"print"
+        });
 
-    });
+    },
 
-}
+
+
+    /*======================================
+    SEARCH OFFDAY
+    ======================================*/
+
+    async searchOffday(date) {
+
+        return await this.get(
+
+            "searchOffday",
+
+            {
+
+                date
+
+            }
+
+        );
+
+    },
+
+
+
+    /*======================================
+    THERAPIST OMSET
+    ======================================*/
+
+    async getTherapistOmset() {
+
+        return await this.get(
+
+            "therapistOmset"
+
+        );
+
+    },
+
+
+
+    /*======================================
+    PRINT
+    ======================================*/
+
+    async print() {
+
+        return await this.post({
+
+            action: "print"
+
+        });
+
+    }
 
 };
